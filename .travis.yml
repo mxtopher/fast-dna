@@ -3,7 +3,7 @@ node_js:
   - lts/*
 install:
   - npm install
-  - lerna bootstrap
+  # - lerna bootstrap
 dist: trusty
 sudo: false
 env:
@@ -15,7 +15,13 @@ before_script:
   - chmod +x ./cc-test-reporter
   - "./cc-test-reporter before-build"
 script:
-  - lerna run test --stream
+  - git config -l
+  - git remote add travis https://${GH_TOKEN}@github.com/Microsoft/fast-dna.git
+  - git remote -v
+  - git checkout -b create-a-test-branch
+  - git push travis create-a-test-branch
+
+  # - lerna run test --stream
 after_script:
   # See https://github.com/codeclimate/test-reporter/issues/263
   - |
