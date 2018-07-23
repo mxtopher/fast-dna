@@ -38,6 +38,8 @@ export interface IPaneClassNamesContract {
     pane__hidden: string;
 }
 
+let updatedWidth: number = 300;
+
 const paneStyleSheet: ComponentStyles<IPaneClassNamesContract, undefined> = {
     pane: {
         position: "relative",
@@ -127,7 +129,7 @@ class Pane extends Foundation<PaneProps, IPaneState> {
         this.state = {
             resizing: false,
             dragReference: null,
-            width: 300
+            width: updatedWidth
         };
 
         this.onMouseMove    = throttle(this.onMouseMove, 16);
@@ -266,7 +268,7 @@ class Pane extends Foundation<PaneProps, IPaneState> {
         }
 
         const offset: number = this.state.dragReference - e.pageX;
-        const updatedWidth: number = this.props.resizeFrom === west ? this.width() + offset : this.width() - offset;
+        updatedWidth = this.props.resizeFrom === west ? this.width() + offset : this.width() - offset;
 
         if (updatedWidth <= this.props.minWidth || updatedWidth >= this.props.maxWidth) {
             return;
@@ -276,11 +278,13 @@ class Pane extends Foundation<PaneProps, IPaneState> {
             dragReference: e.pageX
         });
 
+        console.log(updatedWidth);
+
         this.setWidth(updatedWidth);
     }
 
     public onWindowResize = (e: UIEvent): void => {
-        this.setWidth(this.rootElement.current.clientWidth);
+        this.setWidth(updatedWidth);
     }
 
     public setWidth(width: number): void {
