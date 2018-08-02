@@ -320,28 +320,57 @@ class Site extends React.Component<ISiteProps & IManagedClasses<ISiteManagedClas
     }
 
     public render(): JSX.Element {
+        console.log(this.props.)
         return (
             <DesignSystemProvider designSystem={devSiteDesignSystemDefaults}>
                 <BrowserRouter>
                     <Shell>
                         {this.renderShellHeader()}
-                        <Switch>
-                            <Route
+                        {/* <Switch> */}
+                            {/* <Route
                                 exact={true}
                                 path={"/"}
-                            >
-                                <Redirect to={this.initialPath} />
-                            </Route>
-                            {this.renderRoutes()}
-                            <Route path="*" component={NotFound} />
-                        </Switch>
+                            > */}
+                                {/* <Redirect to={this.initialPath} /> */}
+                            {/* </Route> */}
+                            {/* <Route path={"/"}> */}
+                                {this.renderShellRow(this.getRouteByPath(this.state.currentPath))}
+                            {/* </Route> */}
+                            {/* <Route path="*" component={NotFound} /> */}
+                        {/* </Switch> */}
                         {this.renderShellInfoBar()}
                     </Shell>
                 </BrowserRouter>
             </DesignSystemProvider>
         );
     }
+    // route: string;
+    // schema: any;
+    // componentMapping: any;
+    // exampleView: JSX.Element[];
+    // detailView: JSX.Element[];
+    // status: Status;
+    public getRouteByPath(path: string): IComponentRoute {
+        return this.getRoutes(this.props.children as JSX.Element, "/", SiteSlot.category, []).find((item: IComponentRoute) => {
+            return item.route === path;
+        });
+        // return {
+        //     route: path,
+        //     schema: null,
+        //     componentMapping: null,
+        //     exampleView: null,
+        //     detailView: null,
+        //     status: null
+        // }
+        // console.log(this.state, path);
+        // return null;
+    }
 
+    public getAllPaths(): string[] {
+        return this.getRoutes(this.props.children as JSX.Element, "/", SiteSlot.category, []).map((item: IComponentRoute): string => {
+            return item.route;
+        });
+    }
     public componentDidMount(): void {
         // If the path we load the site in doesn't match component view, update state
         // to match the path
