@@ -381,9 +381,6 @@ class Site extends React.Component<ISiteProps & IManagedClasses<ISiteManagedClas
                         />
                     </Row>
                     <div className={this.props.managedClasses.site_canvasContent}>
-                        <div>
-
-                        </div>
                         <ComponentView
                             viewType={this.state.componentView}
                             routes={this.getRoutes(this.props.children, "/", SiteSlot.category)}
@@ -576,7 +573,7 @@ class Site extends React.Component<ISiteProps & IManagedClasses<ISiteManagedClas
     /**
      * Render the site title
      */
-    private renderSiteTitle(): JSX.Element[] {
+    private renderSiteTitle(): JSX.Element {
         const title: JSX.Element[] | undefined = this.renderChildrenBySlot(this, "title");
 
         return Array.isArray(title)

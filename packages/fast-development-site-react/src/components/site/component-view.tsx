@@ -20,7 +20,7 @@ export interface IComponentViewManagedClasses {
 
 export interface IComponentViewProps extends RouteComponentProps<{}> {
     viewType: ComponentViewTypes;
-    routes: IComponentRoute[]
+    routes: IComponentRoute[];
 }
 
 const style: ComponentStyles<IComponentViewManagedClasses, IDevSiteDesignSystem> = {
@@ -59,15 +59,25 @@ class ComponentView extends React.Component<IComponentViewProps & IManagedClasse
         );
     }
 
-    private renderRoute(route: IComponentRoute): JSX.Element[] {
+    private renderRoute = (route: IComponentRoute): JSX.Element[] => {
         return [
-            <Route
-                path={route.route}
-                exact={true}
-                component={(): any => route.route}
-                key={route.route}
-            />
+            (
+                <Route
+                    path={route.route}
+                    exact={true}
+                    component={this.renderRouteExampleView(route)}
+                    key={route.route}
+                />
+            )
         ];
+    }
+
+    private renderRouteExampleView(route: IComponentRoute): () => React.ReactNode[] {
+        return (): React.ReactNode[] => {
+            // TODO: You are here
+            return null;
+            // return route.exampleView;
+        };
     }
 
     private getClassName(): string {
