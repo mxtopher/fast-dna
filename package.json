@@ -74,6 +74,7 @@
     ]
   },
   "devDependencies": {
+    "@applitools/eyes.cypress": "^3.1.1",
     "@microsoft/fast-tslint-rules": "^3.0.0",
     "@types/jest": "^23.3.5",
     "@types/lodash-es": "^4.17.0",
@@ -81,6 +82,7 @@
     "babel-core": "^6.26.0",
     "babel-jest": "^23.6.0",
     "babel-preset-env": "^1.6.1",
+    "cypress": "^3.1.0",
     "dotenv": "^6.0.0",
     "eyes.selenium": "0.0.83",
     "glob": "^7.1.2",
