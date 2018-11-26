@@ -3,21 +3,32 @@
  */
 export interface CarouselItemClassNameContract {
     /**
-     * The content for the carousel component
+     * The carousel item content
      */
     carouselItem_content?: string;
 
     /**
-     * The hidden modifier for the content for the carousel component
+     * The carousel item content hidden modifier
      */
     carouselItem_content__hidden?: string;
+
     /**
-     * The sequence indicator for the carousel component
+     * The carousel item sequence indicator
      */
     carouselItem_sequenceIndicator?: string;
 
     /**
-     * The active modifier for the sequence indicator for the carousel component
+     * The carousel item sequence indicator active modifier
      */
     carouselItem_sequenceIndicator__active?: string;
+}
+
+/**
+ * The class name contract for the carousel component
+ */
+export interface CarouselClassNameContract {
+    /**
+     * The root of the carousel component
+     */
+    carousel?: string;
 }

@@ -1,0 +1,14 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "title": "Carousel item",
+    "description": "A carousel item component's schema definition.",
+    "type": "object",
+    "id": "carousel-item",
+    "properties": {},
+    "reactProperties": {
+        "children": {
+            "title": "Building blocks",
+            "type": "children"
+        }
+    }
+}
