@@ -43,6 +43,9 @@ export { RadioExamples };
 import TabsExamples from "../src/tabs/examples.data";
 export { TabsExamples };
 
+import TextArea from "../src/text-area/examples.data";
+export { TextArea };
+
 import TextFieldExamples from "../src/text-field/examples.data";
 export { TextFieldExamples };
 

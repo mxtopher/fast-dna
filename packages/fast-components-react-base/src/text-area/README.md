@@ -1,0 +1,2 @@
+# Text area
+The HTML [textarea](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea) element represents a multi-line plain-text editing control, useful when you want to allow users to enter a sizeable amount of free-form text, for example a comment on a review or feedback form.
