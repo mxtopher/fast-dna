@@ -7,7 +7,7 @@ import {
 export interface TextAreaManagedClasses
     extends ManagedClasses<TextAreaClassNameContract> {}
 export interface TextAreaUnhandledProps
-    extends React.HtmlHTMLAttributes<HTMLInputElement> {}
+    extends React.HTMLAttributes<HTMLTextAreaElement> {}
 export interface TextAreaHandledProps extends TextAreaManagedClasses {
     /**
      * The disabled state

@@ -27,7 +27,6 @@ class TextArea extends Foundation<TextAreaHandledProps, TextAreaUnhandledProps, 
         return (
             <div>
                 <input
-                    {...this.unhandledProps()}
                     className={this.generateClassNames()}
                     disabled={this.props.disabled || null}
                     placeholder={this.props.placeholder || null}
