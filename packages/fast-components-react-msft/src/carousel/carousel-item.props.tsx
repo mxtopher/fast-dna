@@ -1,9 +1,9 @@
 import * as React from "react";
 import {
-    ManagedClasses,
     CarouselItemClassNameContract,
+    ManagedClasses,
 } from "@microsoft/fast-components-class-name-contracts-msft";
-//import { TabsSlot } from "./tabs";
+// import { TabsSlot } from "./tabs";
 
 export interface CarouselItemManagedClasses
     extends ManagedClasses<CarouselItemClassNameContract> {}
@@ -19,11 +19,6 @@ export interface CarouselItemHandledProps extends CarouselItemManagedClasses {
      * The unique label for the carousel item
      */
     label?: string;
-
-    /**
-     * The tab active state
-     */
-    active?: boolean;
 
     /**
      * The tab content

@@ -17,7 +17,6 @@ class CarouselItem extends Foundation<
     protected handledProps: HandledProps<CarouselItemHandledProps> = {
         id: void 0,
         managedClasses: void 0,
-        active: void 0,
     };
 
     /**
@@ -30,14 +29,9 @@ class CarouselItem extends Foundation<
                 id={this.props.id}
                 {...this.unhandledProps()}
             >
-                <Tab
-                    slot={TabsSlot.tab}
-                    active={this.props.active}
-                    className={this.generateTabClassNames()}
-                />
+                <Tab slot={TabsSlot.tab} className={this.generateTabClassNames()} />
                 <TabPanel
                     slot={TabsSlot.tabPanel}
-                    active={this.props.active}
                     className={this.generateTabPanelClassNames()}
                 >
                     {this.props.children}
@@ -50,30 +44,32 @@ class CarouselItem extends Foundation<
      * Generates tab class names based on props
      */
     protected generateTabClassNames(): string {
-        const className: string = "managedClasses.carouselItem_sequenceIndicator";
-        return this.props.active
-            ? super.generateClassNames(
-                  `${get(this.props, className)} ${get(
-                      this.props,
-                      "managedClasses.carouselItem_sequenceIndicator__active"
-                  )}`
-              )
-            : super.generateClassNames(get(this.props, className));
+        // const className: string = "managedClasses.carouselItem_sequenceIndicator";
+        // return this.props.active
+        //     ? super.generateClassNames(
+        //           `${get(this.props, className)} ${get(
+        //               this.props,
+        //               "managedClasses.carouselItem_sequenceIndicator__active"
+        //           )}`
+        //       )
+        //     : super.generateClassNames(get(this.props, className));
+        return "";
     }
 
     /**
      * Generates tab panel class names based on props
      */
     protected generateTabPanelClassNames(): string {
-        const className: string = "managedClasses.carouselItem_content";
-        return this.props.active
-            ? super.generateClassNames(get(this.props, className))
-            : super.generateClassNames(
-                  `${get(this.props, className)} ${get(
-                      this.props,
-                      "managedClasses.carouselItem_content__hidden"
-                  )}`
-              );
+        // const className: string = "managedClasses.carouselItem_content";
+        // return this.props.active
+        //     ? super.generateClassNames(get(this.props, className))
+        //     : super.generateClassNames(
+        //           `${get(this.props, className)} ${get(
+        //               this.props,
+        //               "managedClasses.carouselItem_content__hidden"
+        //           )}`
+        //       );
+        return "";
     }
 }
 

@@ -3,7 +3,7 @@
     "title": "Carousel",
     "description": "A carousel component's schema definition.",
     "type": "object",
-    "id": "tabs",
+    "id": "carousel",
     "properties": {
         "label": {
             "title": "HTML aria-label attribute",

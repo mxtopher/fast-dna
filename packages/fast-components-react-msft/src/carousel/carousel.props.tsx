@@ -6,8 +6,8 @@ import {
     TabsUnhandledProps,
 } from "@microsoft/fast-components-react-base";
 import {
-    TabsClassNameContract,
     ManagedClasses,
+    TabsClassNameContract,
 } from "@microsoft/fast-components-class-name-contracts-base";
 
 export interface CarouselManagedClasses extends ManagedClasses<TabsClassNameContract> {}

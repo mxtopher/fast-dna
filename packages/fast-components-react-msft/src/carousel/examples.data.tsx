@@ -1,12 +1,10 @@
 import * as React from "react";
+import { TabsSlot } from "@microsoft/fast-components-react-base";
 import { Carousel, CarouselProps } from "./index";
 import schema from "./carousel.schema.json";
 import carouselItemSchema from "./carousel-item.schema.json";
-//import Documentation from "./.tmp/documentation";
+import Documentation from "./.tmp/documentation";
 import { ComponentFactoryExample } from "@microsoft/fast-development-site-react";
-
-const testString: string = "Call to action";
-const testDestination: string = "https://www.microsoft.com/en-us/";
 
 export default {
     name: "Carousel",
@@ -14,33 +12,41 @@ export default {
     schema: schema as any,
     documentation: <Documentation />,
     detailData: {
-        id: "",
+        id: "Carousel",
         label: "A set of example text content",
         children: [
             {
                 id: carouselItemSchema.id,
                 props: {
-                    id: "tab01",
-                    children: ["this is a child"],
+                    id: "1",
+                    slot: TabsSlot.tabItem,
+                    children: "Carousel Item 1",
+                },
+            },
+            {
+                id: carouselItemSchema.id,
+                props: {
+                    id: "2",
+                    slot: TabsSlot.tabItem,
+                    children: "Carousel Item 2",
                 },
             },
         ],
     },
     data: [
-        // {
-        //     children: "Primary call to action",
-        //     href: testDestination,
-        //     "data-sketch-symbol": "Call to action - primary",
-        // } as any, // TODO https://github.com/Microsoft/TypeScript/issues/6579
-        // {
-        //     children: "Lightweight call to action",
-        //     href: testDestination,
-        //     "data-sketch-symbol": "Call to action - lightweight",
-        // },
-        // {
-        //     children: "Justified call to action",
-        //     href: testDestination,
-        //     "data-sketch-symbol": "Call to action - justified",
-        // },
+        {
+            id: "Carousel",
+            label: "A set of example text content",
+            children: [
+                {
+                    id: carouselItemSchema.id,
+                    props: {
+                        id: "1",
+                        slot: TabsSlot.tabItem,
+                        children: "Carousel Item 1",
+                    },
+                },
+            ],
+        },
     ],
 } as ComponentFactoryExample<CarouselProps>;

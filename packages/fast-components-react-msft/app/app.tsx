@@ -32,12 +32,23 @@ import ColorPicker, { ColorConfig } from "./color-picker";
 import reactHTMLElementExamples from "./components/examples.data";
 import { Label } from "../src/label";
 
+import { CarouselItem } from "../src";
+import CarouselItemSchema from "../src/carousel/carousel-item.schema.json";
+
 /* tslint:disable-next-line */
 const sketchDesignKit = require("./fast-dna-msft-design-kit.sketch");
 
-const formChildOptions: FormChildOption[] = [reactHTMLElementExamples].concat(
+let formChildOptions: FormChildOption[] = [reactHTMLElementExamples].concat(
     formChildFromExamplesFactory(examples)
 );
+
+formChildOptions = formChildOptions.concat([
+    {
+        name: "Carousel Item",
+        component: CarouselItem,
+        schema: CarouselItemSchema,
+    },
+]);
 
 const hypertextStyles: ComponentStyles<HypertextClassNameContract, undefined> = {
     hypertext: {
