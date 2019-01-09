@@ -1,6 +1,9 @@
 import ActionTriggerExamples from "../src/action-trigger/examples.data";
 export { ActionTriggerExamples };
 
+import BadgeExamples from "../src/badge/examples.data";
+export { BadgeExamples };
+
 import BreadcrumbExamples from "../src/breadcrumb/examples.data";
 export { BreadcrumbExamples };
 

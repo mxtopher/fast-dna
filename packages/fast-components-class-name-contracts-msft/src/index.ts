@@ -1,4 +1,5 @@
 export * from "./action-trigger";
+export * from "./badge";
 export * from "./button";
 export * from "./call-to-action";
 export * from "./caption";
