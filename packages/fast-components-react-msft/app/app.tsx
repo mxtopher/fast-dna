@@ -19,6 +19,7 @@ import {
     DesignSystem,
     DesignSystemDefaults,
 } from "@microsoft/fast-components-styles-msft";
+import { Plugin, PluginProps } from "@microsoft/fast-data-utilities-react";
 import {
     HypertextClassNameContract,
     ManagedClasses,
@@ -26,18 +27,49 @@ import {
 import { glyphBuildingblocks } from "@microsoft/fast-glyphs-msft";
 import * as React from "react";
 import { Direction } from "@microsoft/fast-application-utilities";
+import AdditionalPropsPlugin from "./utilities/additional-props.plugin";
 import * as examples from "./examples";
 import { Hypertext } from "../src/hypertext";
 import ColorPicker, { ColorConfig } from "./color-picker";
-import reactHTMLElementExamples from "./components/examples.data";
+import reactHTMLElementExamples from "./components/react-html-element-child-option";
+import reactSVGElementExamples from "./components/svg-svg-element-child-option";
+import carouselHeroContentExamples from "./components/carousel-hero-content-child-options";
+import carouselDarkImageContentExamples from "./components/carousel-dark-image-content-child-options";
+import carouselLightImageContentExamples from "./components/carousel-light-image-content-child-options";
+import pivotItemContentExamples from "./components/pivot-item-content-child-options";
+import pivotItemTabExamples from "./components/pivot-item-tab-child-options";
 import { Label } from "../src/label";
 
 /* tslint:disable-next-line */
 const sketchDesignKit = require("./fast-dna-msft-design-kit.sketch");
 
-const formChildOptions: FormChildOption[] = reactHTMLElementExamples.concat(
-    formChildFromExamplesFactory(examples)
-);
+const formChildOptions: FormChildOption[] = [
+    reactHTMLElementExamples,
+    reactSVGElementExamples,
+    carouselHeroContentExamples,
+    carouselDarkImageContentExamples,
+    carouselLightImageContentExamples,
+    pivotItemContentExamples,
+    pivotItemTabExamples,
+].concat(formChildFromExamplesFactory(examples));
+
+const formPlugins: Array<Plugin<PluginProps>> = [
+    new AdditionalPropsPlugin({
+        id: [
+            "@microsoft/fast-components-react-msft/action-toggle/selectedGlyph",
+            "@microsoft/fast-components-react-msft/action-toggle/unselectedGlyph",
+            "@microsoft/fast-components-react-msft/action-trigger/glyph",
+            "@microsoft/fast-components-react-msft/button/beforeContent",
+            "@microsoft/fast-components-react-msft/button/afterContent",
+            "@microsoft/fast-components-react-msft/carousel/items/content",
+            "@microsoft/fast-components-react-msft/select-option/glyph",
+            "@microsoft/fast-components-react-msft/pivot/items/content",
+            "@microsoft/fast-components-react-msft/pivot/items/tab",
+            "@microsoft/fast-components-react-msft/text-action/beforeGlyph",
+            "@microsoft/fast-components-react-msft/text-action/afterGlyph",
+        ],
+    }),
+];
 
 const hypertextStyles: ComponentStyles<HypertextClassNameContract, undefined> = {
     hypertext: {
@@ -92,19 +124,14 @@ export default class App extends React.Component<{}, AppState> {
         return (
             <Site
                 formChildOptions={formChildOptions}
+                formPlugins={formPlugins}
                 onUpdateDirection={this.handleUpdateDirection}
                 onUpdateTheme={this.handleUpdateTheme}
                 themes={this.themes}
                 activeTheme={this.getThemeById(this.state.theme)}
                 showTransparencyToggle={true}
+                styleEditing={true}
             >
-                <SiteMenu slot={"header"}>
-                    <SiteMenuItem>
-                        <Hypertext jssStyleSheet={hypertextStyles} href={sketchDesignKit}>
-                            Download design kit - sketch
-                        </Hypertext>
-                    </SiteMenuItem>
-                </SiteMenu>
                 <SiteTitle slot={"title"}>
                     <SiteTitleBrand>FAST</SiteTitleBrand> Documentation
                 </SiteTitle>

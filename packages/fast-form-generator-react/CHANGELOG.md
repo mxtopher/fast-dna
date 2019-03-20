@@ -3,21 +3,107 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [3.4.0](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-form-generator-react@3.3.1...@microsoft/fast-form-generator-react@3.4.0) (2019-01-15)
+# [3.8.0](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-form-generator-react@3.7.0...@microsoft/fast-form-generator-react@3.8.0) (2019-03-19)
+
+
+### Bug Fixes
+
+* update jest to fix build break ([#1531](https://github.com/Microsoft/fast-dna/issues/1531)) ([73ae6de](https://github.com/Microsoft/fast-dna/commit/73ae6de))
 
 
 ### Features
 
-* Form items should be able to be disabled ([#1251](https://github.com/Microsoft/fast-dna/issues/1251)) ([cdabd44](https://github.com/Microsoft/fast-dna/commit/cdabd44))
-* simplify the UI for editing array and children data types ([b1f1975](https://github.com/Microsoft/fast-dna/commit/b1f1975))
+* add the form generator to tooling ([#1523](https://github.com/Microsoft/fast-dna/issues/1523)) ([7d8012d](https://github.com/Microsoft/fast-dna/commit/7d8012d))
 
 
 
 
 
-## [3.3.1](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-form-generator-react@3.3.0...@microsoft/fast-form-generator-react@3.3.1) (2018-12-31)
+# [3.7.0](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-form-generator-react@3.6.2...@microsoft/fast-form-generator-react@3.7.0) (2019-03-11)
+
+
+### Bug Fixes
+
+* text from warpping in child item of fast form ([#1518](https://github.com/Microsoft/fast-dna/issues/1518)) ([345c954](https://github.com/Microsoft/fast-dna/commit/345c954))
+
+
+### Features
+
+* add plugin system ([#1449](https://github.com/Microsoft/fast-dna/issues/1449)) ([68238cb](https://github.com/Microsoft/fast-dna/commit/68238cb))
+
+
+
+
+
+## [3.6.2](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-form-generator-react@3.6.1...@microsoft/fast-form-generator-react@3.6.2) (2019-03-01)
 
 **Note:** Version bump only for package @microsoft/fast-form-generator-react
+
+
+
+
+
+## [3.6.1](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-form-generator-react@3.6.0...@microsoft/fast-form-generator-react@3.6.1) (2019-02-28)
+
+**Note:** Version bump only for package @microsoft/fast-form-generator-react
+
+
+
+
+
+# [3.6.0](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-form-generator-react@3.5.2...@microsoft/fast-form-generator-react@3.6.0) (2019-02-21)
+
+
+### Bug Fixes
+
+* allows a oneOf with a nested object to be used ([#1386](https://github.com/Microsoft/fast-dna/issues/1386)) ([db825a7](https://github.com/Microsoft/fast-dna/commit/db825a7))
+* fixes an issue where objects were returned when strings were selected in the children UI ([#1401](https://github.com/Microsoft/fast-dna/issues/1401)) ([040e742](https://github.com/Microsoft/fast-dna/commit/040e742))
+* font size in fast form and fast site ([#1369](https://github.com/Microsoft/fast-dna/issues/1369)) ([90de283](https://github.com/Microsoft/fast-dna/commit/90de283))
+* normalize colors and backgrounds across tooling packages ([#1421](https://github.com/Microsoft/fast-dna/issues/1421)) ([2ba5dec](https://github.com/Microsoft/fast-dna/commit/2ba5dec))
+
+
+### Features
+
+* add a controlled location state ([#1377](https://github.com/Microsoft/fast-dna/issues/1377)) ([2e767f8](https://github.com/Microsoft/fast-dna/commit/2e767f8))
+* add ability to control oneOf/anyOf from any property type ([#1367](https://github.com/Microsoft/fast-dna/issues/1367)) ([1c849df](https://github.com/Microsoft/fast-dna/commit/1c849df))
+
+
+
+
+
+## [3.5.2](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-form-generator-react@3.5.1...@microsoft/fast-form-generator-react@3.5.2) (2019-02-07)
+
+**Note:** Version bump only for package @microsoft/fast-form-generator-react
+
+
+
+
+
+<a name="3.5.1"></a>
+## [3.5.1](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-form-generator-react@3.5.0...@microsoft/fast-form-generator-react@3.5.1) (2019-01-26)
+
+
+### Bug Fixes
+
+* remove utilities folder refactor ([#1336](https://github.com/Microsoft/fast-dna/issues/1336)) ([e12c8ed](https://github.com/Microsoft/fast-dna/commit/e12c8ed))
+
+
+
+
+
+<a name="3.5.0"></a>
+# [3.5.0](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-form-generator-react@3.4.0...@microsoft/fast-form-generator-react@3.5.0) (2019-01-22)
+
+
+### Bug Fixes
+
+* added hover state and updated cursor on form array & form children ([#1322](https://github.com/Microsoft/fast-dna/issues/1322)) ([14d0a02](https://github.com/Microsoft/fast-dna/commit/14d0a02))
+* expanded state is null in fast category ([#1300](https://github.com/Microsoft/fast-dna/issues/1300)) ([412980a](https://github.com/Microsoft/fast-dna/commit/412980a))
+
+
+### Features
+
+* add dark theme and set as default to fast-development-site ([#1283](https://github.com/Microsoft/fast-dna/issues/1283)) ([4679b46](https://github.com/Microsoft/fast-dna/commit/4679b46))
 
 
 

@@ -1,17 +1,21 @@
+import SiteTitle from "./title";
 import * as React from "react";
-import SiteTitleBrand from "./title-brand";
 import manageJss, {
     ComponentStyles,
     DesignSystemProvider,
     ManagedClasses,
     ManagedJSSProps,
 } from "@microsoft/fast-jss-manager-react";
+import Navigation from "@microsoft/fast-navigation-generator-react";
 import {
+    glyphArrowright,
     glyphBuildingblocks,
     glyphGlobalnavbutton,
     glyphTransparency,
 } from "@microsoft/fast-glyphs-msft";
 import { mapDataToComponent } from "@microsoft/fast-form-generator-react";
+import { applyScrollbarStyle } from "../../utilities";
+import { Plugin, PluginProps } from "@microsoft/fast-data-utilities-react";
 import { get, uniqueId } from "lodash-es";
 import devSiteDesignSystemDefaults, { DevSiteDesignSystem } from "../design-system";
 import Shell, { ShellHeader, ShellInfoBar, ShellPaneCollapse, ShellSlot } from "../shell";
@@ -19,7 +23,7 @@ import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import { ellipsis, localizeSpacing, toPx } from "@microsoft/fast-jss-utilities";
 import ComponentWrapper from "./component-wrapper";
 import CategoryList from "./category-list";
-import SiteTitle from "./title";
+import SiteTitleBrand from "./title-brand";
 import Toc, { TocItem } from "../toc";
 import SiteMenu from "./menu";
 import SiteMenuItem from "./menu-item";
@@ -52,8 +56,10 @@ export enum ComponentViewSlot {
 
 export interface SiteProps {
     formChildOptions: FormChildOption[];
+    formPlugins?: Array<Plugin<PluginProps>>;
     onUpdateDirection?: (ltr: Direction) => void;
     onUpdateTheme?: (theme: string) => void;
+    styleEditing?: boolean;
     locales?: string[];
     themes?: Theme[];
     activeTheme?: Theme;
@@ -84,11 +90,17 @@ export interface ComponentData {
     [T: string]: any[];
 }
 
+enum NavigationLevel {
+    catalog = "catalog",
+    component = "component",
+}
+
 export interface SiteState {
     currentPath: string;
     activeComponentIndex: number;
     componentName: string;
     componentData: ComponentData;
+    componentDataLocation: string;
     componentSchema: ComponentData;
     componentDataMappedToComponent: ComponentData;
     componentStatus: Status;
@@ -101,6 +113,7 @@ export interface SiteState {
     devToolsView: boolean;
     locale: string;
     theme: Theme;
+    navigationLevel: NavigationLevel;
 }
 
 export enum SiteSlot {
@@ -123,6 +136,7 @@ export interface SiteManagedClasses {
     site_infoBarConfiguration_theme: string;
     site_pane: string;
     site_paneForm: string;
+    site_paneNavigationCloseButton: string;
     site_paneToc: string;
     site_paneTocRow: string;
     site_paneTocTitle: string;
@@ -143,13 +157,13 @@ const styles: ComponentStyles<SiteManagedClasses, DevSiteDesignSystem> = {
     "@global": {
         "body, html": {
             fontFamily: "Segoe UI, SegoeUI, Helvetica Neue, Helvetica, Arial, sans-serif",
-            fontSize: toPx(14),
-            padding: toPx(0),
-            margin: toPx(0),
+            fontSize: "12px",
+            padding: "0",
+            margin: "0",
         },
     },
     site_canvasContent: {
-        height: `calc(100% - ${toPx(40)})`,
+        height: "calc(100% - 30px)",
         display: "flex",
         flexDirection: "column",
     },
@@ -161,54 +175,46 @@ const styles: ComponentStyles<SiteManagedClasses, DevSiteDesignSystem> = {
     site_infoBarConfiguration: {
         display: "flex",
         alignItems: "center",
-        padding: toPx(4),
+        padding: "2px",
     },
     site_infoBarConfiguration_base: {
         position: "relative",
-        "&::before, &::after": {
+        "&::before": {
+            right: "8px",
+            top: "9px",
             content: "''",
             position: "absolute",
-            top: toPx(11),
-            zIndex: "1",
-            borderRadius: toPx(2),
-            width: toPx(1),
-            height: toPx(10),
-            background: "#000000",
-        },
-        "&::before": {
-            right: toPx(15),
-            transform: "rotate(45deg)",
-        },
-        "&::after": {
-            right: toPx(22),
-            transform: "rotate(-45deg)",
+            borderTop: (config: DevSiteDesignSystem): string => {
+                return `3px solid ${config.foreground300 ||
+                    devSiteDesignSystemDefaults.foreground300}`;
+            },
+            borderLeft: "3px solid transparent",
+            borderRight: "3px solid transparent",
         },
     },
     site_infoBarConfiguration_theme: {
         marginRight: toPx(4),
     },
     site_infoBarConfiguration_input: {
-        lineHeight: toPx(16),
-        fontSize: toPx(14),
-        backgroundColor: "rgba(0, 0, 0, 0.04)",
+        backgroundColor: (config: DevSiteDesignSystem): string => {
+            return config.background350 || devSiteDesignSystemDefaults.background350;
+        },
+        color: (config: DevSiteDesignSystem): string => {
+            return config.foreground300 || devSiteDesignSystemDefaults.foreground300;
+        },
+        fontFamily: "inherit",
+        fontSize: "inherit",
         borderRadius: toPx(2),
-        boxShadow: `inset 0 0 ${toPx(4)} 0 rgba(0, 0, 0, 0.08)`,
         appearance: "none",
-        padding: localizeSpacing(Direction.ltr)(
-            `${toPx(8)} ${toPx(36)} ${toPx(8)} ${toPx(10)}`
-        ),
+        padding: localizeSpacing(Direction.ltr)("2px 36px 3px 10px"),
         border: "none",
         outline: "none",
         "&:-ms-expand": {
             display: "none",
         },
-        "&:hover": {
-            boxShadow: `inset 0 0 ${toPx(2)} 0 rgba(0,0,0, .3)`,
-        },
+        // TODO: Issue #309 https://github.com/Microsoft/fast-dna/issues/309
         "&:focus": {
-            boxShadow: (config: DevSiteDesignSystem): string => {
-                return `inset 0 0 0 1 ${config.brandColor}`;
-            },
+            boxShadow: "inset 0 0 0 1px #FB356D",
         },
     },
     site_pane: {
@@ -220,9 +226,21 @@ const styles: ComponentStyles<SiteManagedClasses, DevSiteDesignSystem> = {
     site_paneForm: {
         padding: toPx(12),
     },
+    site_paneNavigationCloseButton: {
+        border: "none",
+        height: "32px",
+        alignSelf: "flex-end",
+        background: "rgb(30, 30, 30)",
+        padding: "6px 12px",
+        outline: "none",
+        color: "white",
+        cursor: "pointer",
+    },
     site_paneToc: {
         padding: "0",
+        margin: "8px 0 0 0",
         overflow: "auto",
+        ...applyScrollbarStyle(),
     },
     site_paneTocRow: {
         display: "flex",
@@ -231,7 +249,8 @@ const styles: ComponentStyles<SiteManagedClasses, DevSiteDesignSystem> = {
     },
     site_paneTocTitle: {
         fontWeight: "bold",
-        marginLeft: toPx(-8),
+        marginLeft: "-4px",
+        lineHeight: "30px",
         textOverflow: ellipsis().textOverflow,
         whiteSpace: "nowrap",
         overflow: "hidden",
@@ -240,41 +259,51 @@ const styles: ComponentStyles<SiteManagedClasses, DevSiteDesignSystem> = {
     site_paneToggleButton: {
         border: "none",
         background: "none",
-        padding: toPx(12),
+        padding: "6px 12px",
         outline: "0",
         alignSelf: "flex-start",
     },
     site_paneToggleButtonIcon: {
-        height: toPx(16),
-        width: toPx(16),
+        fill: (config: DevSiteDesignSystem): string => {
+            return config.foreground300 || devSiteDesignSystemDefaults.foreground300;
+        },
+        height: "16px",
+        width: "16px",
         justifyContent: "center",
-        fontSize: toPx(16),
-        paddingTop: toPx(2),
+        fontSize: "12px",
         display: "inline-block",
     },
     site_paneToggleButtonIconLayout: {
-        height: toPx(40),
-        width: toPx(40),
-        display: "flex",
+        height: "30px",
+        width: "40px",
         alignItems: "center",
         justifyContent: "center",
+        display: "flex",
     },
     site_transparencyToggleButton: {
+        fill: (config: DevSiteDesignSystem): string => {
+            return config.foreground300 || devSiteDesignSystemDefaults.foreground300;
+        },
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
         border: "none",
-        borderRadius: toPx(2),
+        borderRadius: "2px",
         background: "none",
-        height: toPx(32),
-        width: toPx(32),
+        height: "20px",
+        width: "20px",
         cursor: "pointer",
         outline: "0",
-        marginRight: toPx(4),
-        opacity: ".85",
-        paddingTop: toPx(4),
+        opacity: ".5",
+        marginRight: "4px",
+        paddingTop: "2px",
         "&:hover": {
             opacity: "1",
         },
         '&[aria-pressed="true"]': {
-            background: "#FFFFFF",
+            background: (config: DevSiteDesignSystem): string => {
+                return config.background350 || devSiteDesignSystemDefaults.background350;
+            },
             opacity: "1",
         },
     },
@@ -299,7 +328,8 @@ const styles: ComponentStyles<SiteManagedClasses, DevSiteDesignSystem> = {
         width: toPx(16),
         marginRight: toPx(4),
         boxSizing: "border-box",
-        border: `${toPx(1)} solid #FFFFFF`,
+        // TODO: Issue #309 https://github.com/Microsoft/fast-dna/issues/309
+        border: "1px solid #D5D5D5",
     },
     site_statusReleased: {
         backgroundColor: "#3EC28F",
@@ -341,19 +371,21 @@ class Site extends React.Component<
         super(props);
 
         this.initialPath = this.getInitialPath();
+        const path: string = this.getCurrentPath();
 
         this.state = {
-            currentPath: this.initialPath,
+            currentPath: path,
             activeComponentIndex: 0,
             tableOfContentsCollapsed: this.props.collapsed || false,
             componentBackgroundTransparent:
                 this.props.componentBackgroundTransparent || false,
             componentView: ComponentViewTypes.examples,
-            componentName: this.getComponentName(this.initialPath),
+            componentName: this.getComponentName(path),
             componentData: this.getComponentData(),
+            componentDataLocation: "",
             componentSchema: this.getComponentSchema(),
             componentDataMappedToComponent: this.getComponentData(true),
-            componentStatus: this.getComponentStatus(this.initialPath),
+            componentStatus: this.getComponentStatus(path),
             detailViewComponentData: this.getDetailViewComponentData(),
             detailViewComponentDataMappedToComponent: this.getDetailViewComponentData(
                 true
@@ -362,6 +394,7 @@ class Site extends React.Component<
             devToolsView: false,
             locale: "en",
             theme: this.props.activeTheme || this.getInitialTheme(),
+            navigationLevel: NavigationLevel.catalog,
         };
     }
 
@@ -427,7 +460,8 @@ class Site extends React.Component<
                     componentData[route.route][index] = mapDataToComponent(
                         route.schema,
                         routeChild.props.data,
-                        this.props.formChildOptions
+                        this.props.formChildOptions,
+                        this.props.formPlugins
                     );
                 } else {
                     componentData[route.route][index] = routeChild.props.data;
@@ -477,7 +511,8 @@ class Site extends React.Component<
                         componentData[route.route] = mapDataToComponent(
                             route.schema,
                             routeChild.props.data,
-                            this.props.formChildOptions
+                            this.props.formChildOptions,
+                            this.props.formPlugins
                         );
                     } else {
                         componentData[route.route] = routeChild.props.data;
@@ -570,7 +605,9 @@ class Site extends React.Component<
         > = {
             pane: {
                 backgroundColor: (config: DevSiteDesignSystem): string => {
-                    return config.lightGray;
+                    return (
+                        config.background300 || devSiteDesignSystemDefaults.background300
+                    );
                 },
             },
         };
@@ -584,21 +621,20 @@ class Site extends React.Component<
                     jssStyleSheet={paneStyleSheet}
                     minWidth={200}
                 >
-                    <div className={this.props.managedClasses.site_pane}>
-                        {this.renderPaneCollapseToggle()}
-                        {this.renderChildrenBySlot(this, ShellSlot.pane)}
-                        <ul className={this.props.managedClasses.site_paneToc}>
-                            {this.renderRootToc(
-                                this.props.children,
-                                SiteSlot.category,
-                                route.route,
-                                "/"
-                            )}
-                        </ul>
-                    </div>
+                    {this.generateNavigation(
+                        route.exampleView,
+                        route.schema,
+                        route.route
+                    )}
                 </Pane>
+                {this.generateChildrenNavigation(
+                    route.exampleView,
+                    route.schema,
+                    route.route,
+                    paneStyleSheet
+                )}
                 <Canvas>
-                    <Row>
+                    <Row style={{ minHeight: "30px", flexBasis: "30px" }}>
                         <ActionBar
                             onComponentViewChange={this.onComponentViewChange}
                             onFormToggle={this.onFormToggle}
@@ -703,7 +739,8 @@ class Site extends React.Component<
         const dataMappedToComponent: any = mapDataToComponent(
             this.state.componentSchema[currentPath],
             data,
-            this.props.formChildOptions
+            this.props.formChildOptions,
+            this.props.formPlugins
         );
 
         if (this.state.componentView === ComponentViewTypes.examples) {
@@ -758,8 +795,108 @@ class Site extends React.Component<
     private getCurrentPath = (): string => {
         return this.getComponentViewTypesByLocation() === ComponentViewTypes.detail
             ? window.location.pathname
-            : window.location.pathname.slice(0, window.location.pathname.length - 9);
+            : window.location.pathname.slice(0, window.location.pathname.indexOf("/", 1));
     };
+
+    private generateNavigation(
+        component: JSX.Element[],
+        schema: any,
+        route: string
+    ): React.ReactNode {
+        if (component && schema) {
+            const componentData: any =
+                this.state.componentView === ComponentViewTypes.examples
+                    ? Object.assign(
+                          {},
+                          this.state.componentData[route][this.state.activeComponentIndex]
+                      )
+                    : Object.assign({}, this.state.detailViewComponentData[route]);
+
+            return (
+                <div className={this.props.managedClasses.site_pane}>
+                    {this.renderPaneCollapseToggle()}
+                    {this.renderChildrenBySlot(this, ShellSlot.pane)}
+                    <ul className={this.props.managedClasses.site_paneToc}>
+                        {this.renderRootToc(
+                            this.props.children,
+                            SiteSlot.category,
+                            route,
+                            "/"
+                        )}
+                    </ul>
+                </div>
+            );
+        }
+    }
+
+    private generateChildrenNavigation(
+        component: JSX.Element[],
+        schema: any,
+        route: string,
+        paneStyleSheet: any
+    ): React.ReactNode {
+        if (
+            component &&
+            schema &&
+            !!this.props.styleEditing &&
+            this.state.navigationLevel === NavigationLevel.component
+        ) {
+            const componentData: any =
+                this.state.componentView === ComponentViewTypes.examples
+                    ? Object.assign(
+                          {},
+                          this.state.componentData[route][this.state.activeComponentIndex]
+                      )
+                    : Object.assign({}, this.state.detailViewComponentData[route]);
+
+            return (
+                <Pane
+                    resizable={true}
+                    resizeFrom={PaneResizeDirection.east}
+                    jssStyleSheet={paneStyleSheet}
+                    minWidth={200}
+                    style={{ background: "rgb(30, 30, 30)" }}
+                >
+                    <button
+                        className={
+                            this.props.managedClasses.site_paneNavigationCloseButton
+                        }
+                        onClick={this.handleCloseChildrenNavigation}
+                    >
+                        <span
+                            className={
+                                this.props.managedClasses.site_paneToggleButtonIcon
+                            }
+                            style={{ width: "unset", lineHeight: "18px" }}
+                        >
+                            <svg
+                                width="14"
+                                height="14"
+                                viewBox="0 0 14 14"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    d="M7.71094 7L13.1016 12.3984L12.3984 13.1016L7 7.71094L1.60156 13.1016L0.898438 12.3984L6.28906 7L0.898438 1.60156L1.60156 0.898438L7 6.28906L12.3984 0.898438L13.1016 1.60156L7.71094 7Z"
+                                    fill="white"
+                                />
+                            </svg>
+                        </span>
+                    </button>
+                    <Navigation
+                        data={componentData}
+                        schema={schema}
+                        childOptions={this.props.formChildOptions}
+                        onLocationUpdate={this.handleLocationUpdate}
+                        dataLocation={this.state.componentDataLocation}
+                        jssStyleSheet={{ navigation: { background: "rgb(30, 30, 30)" } }}
+                    />
+                </Pane>
+            );
+        }
+
+        return null;
+    }
 
     private generateForm(
         component: JSX.Element[],
@@ -779,8 +916,11 @@ class Site extends React.Component<
                 <ConfigurationPanel
                     schema={schema}
                     data={componentData}
+                    dataLocation={this.state.componentDataLocation}
                     onChange={this.handleComponentDataChange.bind(route)}
                     formChildOptions={this.props.formChildOptions}
+                    onLocationUpdate={this.handleLocationUpdate}
+                    styleEditing={this.props.styleEditing}
                 />
             );
         }
@@ -888,9 +1028,21 @@ class Site extends React.Component<
         return null;
     }
 
+    private handleLocationUpdate = (dataLocation: string): void => {
+        this.setState({
+            componentDataLocation: dataLocation,
+        });
+    };
+
     private handleComponentClick = (activeIndex: number): void => {
         this.setState({
             activeComponentIndex: activeIndex,
+        });
+    };
+
+    private handleCloseChildrenNavigation = (): void => {
+        this.setState({
+            navigationLevel: NavigationLevel.catalog,
         });
     };
 
@@ -1204,10 +1356,8 @@ class Site extends React.Component<
         const categoryItems: JSX.Element[] = [];
         const rootTocItems: JSX.Element[] = [];
         const tocItems: any[] = Array.isArray(items) ? items : [items];
-
         tocItems.forEach((item: JSX.Element) => {
             const isInSlot: boolean = item && item.props && item.props.slot === slot;
-
             if (
                 isInSlot &&
                 ((collapsed && this.renderTocItemCategoryIcon(item)) || !collapsed)
@@ -1266,6 +1416,8 @@ class Site extends React.Component<
                     componentName: this.getComponentName(tocItemPath),
                     componentStatus: this.getComponentStatus(tocItemPath),
                     currentPath: tocItemPath,
+                    navigationLevel: NavigationLevel.component,
+                    componentDataLocation: "",
                 });
             },
         };

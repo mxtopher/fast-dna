@@ -1,13 +1,13 @@
 import * as React from "react";
-import { cloneDeep, get, isPlainObject, set } from "lodash-es";
+import { cloneDeep, get, isPlainObject, set, uniqueId } from "lodash-es";
 import * as tv4 from "tv4";
 import Plugin, { PluginProps } from "./plugin";
 
 const pluginIdKeyword: string = "pluginId";
 const typeKeyword: string = "type";
-const childrenKeyword: string = "children";
 const squareBracketsRegex: RegExp = /\[(\d+?)\]/g;
 const propsKeyword: string = "props";
+const idKeyword: string = "id";
 
 export enum DataResolverType {
     plugin = "plugin",
@@ -17,6 +17,14 @@ export enum DataResolverType {
 export enum PropertyKeyword {
     properties = "properties",
     reactProperties = "reactProperties",
+}
+
+export enum DataType {
+    number = "number",
+    string = "string",
+    boolean = "boolean",
+    array = "array",
+    children = "children",
 }
 
 export enum CombiningKeyword {
@@ -56,16 +64,45 @@ export interface DataResolver {
 
 export interface PluginLocation {
     /**
-     * The data location of the data
-     * to be interpreted by the plugin
+     * The data location to be interpreted by the plugin
      */
     dataLocation: string;
+
+    /**
+     * The type of data this represents
+     */
+    type: DataType;
+
+    /**
+     * The mapping type
+     */
+    mappingType: DataResolverType.plugin;
+
+    /**
+     * The data location of the data
+     * relative to the schema
+     */
+    relativeDataLocation: string;
 
     /**
      * The schema related to the data location
      */
     schema: any;
 }
+
+export interface ChildrenLocation {
+    /**
+     * The data location of the child component
+     */
+    dataLocation: string;
+
+    /**
+     * The mapping type
+     */
+    mappingType: DataResolverType.component;
+}
+
+type MappedDataLocation = PluginLocation | ChildrenLocation;
 
 interface PluginResolverDataMap {
     /**
@@ -233,19 +270,24 @@ function getSchemaLocationSegmentsFromDataLocationSegment(
     schema: any,
     data: any
 ): string[] {
-    const schemaLocationSegments: string[] = [];
+    let schemaLocationSegments: string[] = [];
     const normalizedDataLocationForArrayRemoval: string = dataLocation.replace(
-        /\[\d+\]/g,
+        squareBracketsRegex,
         ""
     );
-    const subSchema: any = get(
+    const childrensSubSchema: any = get(
         schema,
         `${PropertyKeyword.reactProperties}.${normalizedDataLocationForArrayRemoval}`
     );
-    const isChildren: boolean = subSchema && subSchema.type === childrenKeyword;
+    const isChildren: boolean =
+        childrensSubSchema && childrensSubSchema.type === DataType.children;
+    const objectSubSchema: any = get(
+        schema,
+        `${PropertyKeyword.properties}.${normalizedDataLocationForArrayRemoval}`
+    );
 
     if (isPlainObject(data)) {
-        schemaLocationSegments.push(getObjectPropertyKeyword(subSchema));
+        schemaLocationSegments.push(getObjectPropertyKeyword(childrensSubSchema));
     }
 
     schemaLocationSegments.push(
@@ -255,10 +297,41 @@ function getSchemaLocationSegmentsFromDataLocationSegment(
     // In the case that this is an array and not an array of children,
     // add the JSON schema "items" keyword
     if (isDataLocationArrayItem(dataLocation) && !isChildren) {
+        if (hasOneOfOrAnyOf(objectSubSchema)) {
+            schemaLocationSegments = schemaLocationSegments.concat(
+                getSchemaOneOfAnyOfLocationSegments(
+                    getPartialData(
+                        normalizeSchemaLocation(schemaLocationSegments.join(".")),
+                        schema
+                    ),
+                    getPartialData(dataLocation.replace(squareBracketsRegex, ""), data)
+                )
+            );
+        }
+
         schemaLocationSegments.push("items");
     }
 
+    if (hasOneOfOrAnyOf(objectSubSchema)) {
+        schemaLocationSegments = schemaLocationSegments.concat(
+            getSchemaOneOfAnyOfLocationSegments(
+                getPartialData(
+                    normalizeSchemaLocation(schemaLocationSegments.join(".")),
+                    schema
+                ),
+                getPartialData(dataLocation, data)
+            )
+        );
+    }
+
     return schemaLocationSegments;
+}
+
+/**
+ * Determines if a schema has a oneOf or anyOf at root level
+ */
+function hasOneOfOrAnyOf(schema: any): boolean {
+    return schema && (schema.oneOf || schema.anyOf);
 }
 
 /**
@@ -334,7 +407,7 @@ function getReactChildrenLocationsFromSchema(
         (schemaLocation: string): boolean => {
             return (
                 !!schemaLocation.match(/reactProperties\..+?\b/) &&
-                get(schema, schemaLocation).type === childrenKeyword
+                get(schema, schemaLocation).type === DataType.children
             );
         }
     );
@@ -343,7 +416,7 @@ function getReactChildrenLocationsFromSchema(
 /**
  * Finds the locations throughout an object
  */
-function getLocationsFromObject(data: any, location: string = ""): string[] {
+export function getLocationsFromObject(data: any, location: string = ""): string[] {
     let updatedLocations: string[] = [];
 
     if (typeof data === "string" || data === null || data === undefined) {
@@ -368,11 +441,11 @@ function getLocationsFromObject(data: any, location: string = ""): string[] {
 /**
  * Callback to determine if a string is found within an array of plugin locations
  */
-function pluginPartialFindIndexCallback(
-    location: string
-): (locationItem: PluginLocation) => boolean {
-    return (locationItem: PluginLocation): boolean => {
-        return location.includes(locationItem.dataLocation);
+function pluginFindIndexCallback(
+    dataLocation: string
+): (pluginLocation: PluginLocation) => boolean {
+    return (pluginLocation: PluginLocation): boolean => {
+        return dataLocation === pluginLocation.dataLocation;
     };
 }
 
@@ -400,26 +473,15 @@ export function getDataLocationsOfPlugins(
             );
             const subSchema: any =
                 schemaLocation === "" ? schema : get(schema, schemaLocation);
+            const normalizedDataLocation: string = normalizeDataLocation(
+                dataLocation,
+                data
+            );
             const dataLocationOfPlugin: string =
                 dataLocationPrefix === ""
-                    ? dataLocation
-                    : `${dataLocationPrefix}.${propsKeyword}.${dataLocation}`;
-
-            // check to see if the data location matches with the current schema and includes a plugin identifier
-            if (
-                typeof get(subSchema, pluginIdKeyword) === "string" &&
-                dataLocationsOfPlugins.findIndex(
-                    pluginPartialFindIndexCallback(dataLocationOfPlugin)
-                ) === -1
-            ) {
-                dataLocationsOfPlugins.push({
-                    schema,
-                    dataLocation: dataLocationOfPlugin,
-                });
-            }
-
-            // check to see if this is a child
-            if (
+                    ? normalizedDataLocation
+                    : `${dataLocationPrefix}.${propsKeyword}.${normalizedDataLocation}`;
+            const isChildComponent: boolean =
                 get(
                     schema,
                     `${
@@ -427,8 +489,30 @@ export function getDataLocationsOfPlugins(
                             ? typeKeyword
                             : `${schemaLocation}.${typeKeyword}`
                     }`
-                ) === childrenKeyword
+                ) === DataType.children;
+            const subData: any = get(data, `${dataLocation}.${propsKeyword}`);
+            const isNotAnArrayOfChildren: boolean =
+                (isChildComponent && typeof subData !== "undefined") || !isChildComponent;
+
+            // check to see if the data location matches with the current schema and includes a plugin identifier
+            if (
+                typeof get(subSchema, pluginIdKeyword) === "string" &&
+                dataLocationsOfPlugins.findIndex(
+                    pluginFindIndexCallback(dataLocationOfPlugin)
+                ) === -1 &&
+                isNotAnArrayOfChildren
             ) {
+                dataLocationsOfPlugins.push({
+                    schema,
+                    type: get(subSchema, typeKeyword),
+                    mappingType: DataResolverType.plugin,
+                    dataLocation: dataLocationOfPlugin,
+                    relativeDataLocation: normalizedDataLocation,
+                });
+            }
+
+            // check to see if this is a child
+            if (isChildComponent) {
                 // resolve the child id with a child option
                 const childOption: ChildOptionItem = getChildOptionBySchemaId(
                     get(data, dataLocation).id,
@@ -443,7 +527,7 @@ export function getDataLocationsOfPlugins(
                     dataLocationsOfPlugins = dataLocationsOfPlugins.concat(
                         getDataLocationsOfPlugins(
                             childOption.schema,
-                            get(data, `${dataLocation}.${propsKeyword}`),
+                            subData,
                             childOptions,
                             updatedDataLocationPrefix
                         )
@@ -519,8 +603,12 @@ export function getDataLocationsOfChildren(
     dataLocationsOfChildren.forEach((dataLocationOfChildren: string) => {
         const dataLocation: string = `${dataLocationOfChildren}.${propsKeyword}`;
         const subData: any = get(data, dataLocation);
+        const childOption: ChildOptionItem = getChildOptionBySchemaId(
+            get(data, `${dataLocationOfChildren}.${idKeyword}`),
+            childOptions
+        );
         const nestedDataLocationsOfChildren: string[] = getDataLocationsOfChildren(
-            schema,
+            get(childOption, "schema", schema),
             subData,
             childOptions
         );
@@ -611,7 +699,7 @@ export function mapDataToComponent(
     data: any,
     childOptions: ChildOptionItem[],
     plugins: Array<Plugin<PluginProps>> = []
-): any {
+): MappedDataLocation[] {
     const mappedData: any = cloneDeep(data);
 
     // find locations of all items of data that are react children
@@ -621,9 +709,6 @@ export function mapDataToComponent(
         childOptions
     );
 
-    // organize by length using split "."
-    reactChildrenDataLocations.sort(orderChildrenByDataLocation);
-
     // find locations of all items of data that are overridden by mappings
     const pluginModifiedDataLocations: PluginLocation[] = getDataLocationsOfPlugins(
         schema,
@@ -632,11 +717,11 @@ export function mapDataToComponent(
     );
 
     // remove any children data locations from plugin modified locations
-    reactChildrenDataLocations = reactChildrenDataLocations.map(
+    reactChildrenDataLocations = reactChildrenDataLocations.filter(
         (reactChildrenDataLocation: string): string | undefined => {
             if (
                 pluginModifiedDataLocations.findIndex(
-                    pluginPartialFindIndexCallback(reactChildrenDataLocation)
+                    pluginFindIndexCallback(reactChildrenDataLocation)
                 ) === -1
             ) {
                 return reactChildrenDataLocation;
@@ -644,97 +729,134 @@ export function mapDataToComponent(
         }
     );
 
-    // going from the longest length to the shortest, resolve the data with plugins
-    pluginModifiedDataLocations.forEach(
-        (pluginModifiedDataLocation: PluginLocation): void => {
-            const pluginModifiedSchemaLocation: string = mapSchemaLocationFromDataLocation(
-                pluginModifiedDataLocation.dataLocation,
-                data,
-                schema
-            );
-            const pluginId: string = get(
-                pluginModifiedDataLocation.schema,
-                `${pluginModifiedSchemaLocation}.${pluginIdKeyword}`
-            );
-            const pluginResolver: Plugin<PluginProps> = plugins.find(
-                (plugin: Plugin<PluginProps>): boolean => {
-                    return plugin.matches(pluginId);
-                }
-            );
-            const pluginData: any = get(data, pluginModifiedDataLocation.dataLocation);
-            const isReactChildren: boolean =
-                get(
-                    pluginModifiedDataLocation.schema,
-                    `${pluginModifiedSchemaLocation}.${typeKeyword}`
-                ) === childrenKeyword;
-
-            if (pluginResolver !== undefined) {
-                const pluginResolverMapping: PluginResolverDataMap[] = getPluginResolverDataMap(
-                    {
-                        isReactChildren,
-                        pluginData,
-                        pluginResolver,
-                        childOptions,
-                        dataLocation: pluginModifiedDataLocation.dataLocation,
-                    }
-                );
-
-                pluginResolverMapping.forEach(
-                    (pluginResolverMappingItem: PluginResolverDataMap): void => {
-                        set(
-                            mappedData,
-                            pluginResolverMappingItem.dataLocation,
-                            pluginResolverMappingItem.data
-                        );
-                    }
-                );
+    // merge the plugin modified data locations with the children option data locations and categorize them
+    return reactChildrenDataLocations
+        .map(
+            (childDataLocation: string): MappedDataLocation => {
+                return {
+                    mappingType: DataResolverType.component,
+                    dataLocation: childDataLocation,
+                };
             }
-        }
-    );
-
-    // going from the longest length to shortest, resolve the data with the new child options as createElement
-    reactChildrenDataLocations.forEach(
-        (reactChildrenDataLocation: string, index: number) => {
-            const subSchemaId: string = get(
-                mappedData,
-                `${reactChildrenDataLocation}.id`
-            );
-            const subData: any = get(mappedData, reactChildrenDataLocation);
-            const isChildString: boolean = typeof subData === "string";
-            const subDataNormalized: any = isChildString
-                ? subData
-                : get(subData, propsKeyword);
-            const childOption: ChildOptionItem = getChildOptionBySchemaId(
-                subSchemaId,
+        )
+        .concat(pluginModifiedDataLocations)
+        .sort(orderMappedDataByDataLocation)
+        .reduce((mappedDataReduced: any, mappedDataLocation: MappedDataLocation): any => {
+            return resolveData(
+                mappedDataLocation,
+                mappedDataReduced,
+                plugins,
                 childOptions
             );
+        }, mappedData);
+}
 
-            if (!isChildString) {
-                let value: any;
+function resolveData(
+    mappedDataLocation: MappedDataLocation,
+    data: any,
+    plugins: Array<Plugin<PluginProps>>,
+    childOptions: ChildOptionItem[]
+): any {
+    switch (mappedDataLocation.mappingType) {
+        case DataResolverType.plugin:
+            return mapPluginToData(
+                mappedDataLocation as PluginLocation,
+                data,
+                plugins,
+                childOptions
+            );
+        case DataResolverType.component:
+        default:
+            return mapDataToChildren(data, mappedDataLocation.dataLocation, childOptions);
+    }
+}
 
-                if (!childOption) {
-                    value = Object.assign(
-                        { id: subSchemaId },
-                        React.createElement(
-                            React.Fragment,
-                            { key: `${subSchemaId}-${index}` },
-                            subDataNormalized
-                        )
-                    );
-                } else {
-                    value = Object.assign(
-                        { id: subSchemaId },
-                        React.createElement(childOption.component, {
-                            key: `${subSchemaId}-${index}`,
-                            ...subDataNormalized,
-                        })
-                    );
-                }
-
-                set(mappedData, reactChildrenDataLocation, value);
-            }
+function mapPluginToData(
+    pluginModifiedDataLocation: PluginLocation,
+    data: any,
+    plugins: Array<Plugin<PluginProps>>,
+    childOptions: ChildOptionItem[]
+): any {
+    const mappedData: any = cloneDeep(data);
+    const pluginModifiedSchemaLocation: string = mapSchemaLocationFromDataLocation(
+        pluginModifiedDataLocation.relativeDataLocation,
+        data,
+        pluginModifiedDataLocation.schema
+    );
+    const pluginId: string = get(
+        pluginModifiedDataLocation.schema,
+        `${pluginModifiedSchemaLocation}.${pluginIdKeyword}`
+    );
+    const pluginResolver: Plugin<PluginProps> = plugins.find(
+        (plugin: Plugin<PluginProps>): boolean => {
+            return plugin.matches(pluginId);
         }
     );
+    const pluginData: any = get(data, pluginModifiedDataLocation.dataLocation);
+
+    if (pluginResolver !== undefined) {
+        getPluginResolverDataMap({
+            isReactChildren: pluginModifiedDataLocation.type === DataType.children,
+            pluginData,
+            pluginResolver,
+            childOptions,
+            dataLocation: pluginModifiedDataLocation.dataLocation,
+        }).forEach(
+            (pluginResolverMappingItem: PluginResolverDataMap): void => {
+                set(
+                    mappedData,
+                    pluginResolverMappingItem.dataLocation,
+                    pluginResolverMappingItem.data
+                );
+            }
+        );
+    }
+
+    return mappedData;
+}
+
+function mapDataToChildren(
+    data: any,
+    reactChildrenDataLocation: string,
+    childOptions: ChildOptionItem[]
+): any {
+    const mappedData: any = cloneDeep(data);
+    const subSchemaId: string = get(
+        mappedData,
+        `${reactChildrenDataLocation}.${idKeyword}`
+    );
+    const subData: any = get(mappedData, reactChildrenDataLocation);
+    const isChildString: boolean = typeof subData === "string";
+    const subDataNormalized: any = isChildString ? subData : get(subData, propsKeyword);
+    const childOption: ChildOptionItem = getChildOptionBySchemaId(
+        subSchemaId,
+        childOptions
+    );
+
+    if (!isChildString) {
+        let value: any;
+
+        if (typeof childOption === "undefined") {
+            value = Object.assign(
+                { id: subSchemaId },
+                React.createElement(
+                    React.Fragment,
+                    { key: uniqueId(subSchemaId) },
+                    subDataNormalized
+                )
+            );
+        } else {
+            value = Object.assign(
+                { id: subSchemaId },
+                React.createElement(childOption.component, {
+                    key: uniqueId(subSchemaId),
+                    ...subDataNormalized,
+                })
+            );
+        }
+
+        set(mappedData, reactChildrenDataLocation, value);
+    }
 
     return mappedData;
 }
@@ -761,6 +883,26 @@ function orderChildrenByDataLocation(
 ): number {
     const firstLocationLength: number = firstLocation.split(".").length;
     const secondLocationLength: number = secondLocation.split(".").length;
+
+    if (firstLocationLength > secondLocationLength) {
+        return -1;
+    } else if (firstLocationLength < secondLocationLength) {
+        return 1;
+    }
+
+    return 0;
+}
+
+/**
+ * Used as a sort compare function
+ * see: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
+ */
+function orderMappedDataByDataLocation(
+    firstMapping: MappedDataLocation,
+    secondMapping: MappedDataLocation
+): number {
+    const firstLocationLength: number = firstMapping.dataLocation.split(".").length;
+    const secondLocationLength: number = secondMapping.dataLocation.split(".").length;
 
     if (firstLocationLength > secondLocationLength) {
         return -1;

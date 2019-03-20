@@ -21,7 +21,7 @@ const users = [
 ];
 
 const siteConfig = {
-  title: 'FAST-DNA', // Title for your website.
+  title: 'Documentation', // Title for your website.
   tagline: 'An unopinionated system of components, development tools, and utilities used à la carte or as a suite to build enterprise-grade websites and applications.',
   url: 'https://microsoft.github.io', // Your website URL
   baseUrl: '/fast-dna/', 
@@ -39,9 +39,9 @@ const siteConfig = {
 
   // For no header links in the top nav bar -> headerLinks: [],
   headerLinks: [
-    {doc: 'en/contributing/install', label: 'Documentation'},
+    {doc: 'en/contributing/install', label: 'Guide'},
     {href: "https://github.com/microsoft/fast-dna", label: "GitHub"},
-    {href: "https://msft-docs.fast-dna.net", label: "Components"}
+    {href: "https://explore.fastdna.net", label: "Components"}
     // {doc: 'doc4', label: 'API'},
     // {page: 'help', label: 'Help'},
     // {blog: true, label: 'Blog'},

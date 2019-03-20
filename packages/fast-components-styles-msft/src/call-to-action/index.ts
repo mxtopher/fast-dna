@@ -8,9 +8,9 @@ import {
     CallToActionClassNameContract,
 } from "@microsoft/fast-components-class-name-contracts-msft";
 import {
+    applyFocusVisible,
     applyLocalizedProperty,
     Direction,
-    localizeSpacing,
 } from "@microsoft/fast-jss-utilities";
 import { DesignSystem, withDesignSystemDefaults } from "../design-system/index";
 import { disabledContrast, ensureNormalContrast } from "../utilities/colors";
@@ -36,6 +36,13 @@ export const callToActionButtonOverrides: ComponentStyles<
                         ? "translateX(-4px)"
                         : "translateX(4px)";
                 },
+            },
+        },
+    },
+    button__disabled: {
+        "&:hover": {
+            "& $button_contentRegion": {
+                transform: "none",
             },
         },
     },
@@ -72,8 +79,7 @@ const styles: ComponentStyles<CallToActionClassNameContract, DesignSystem> = (
             textDecoration: "none",
             whiteSpace: "nowrap",
             transition: "all 0.2s ease-in-out",
-            "&:hover, &:focus": {
-                outline: "none",
+            "&:hover": {
                 "& $callToAction_glyph": {
                     transform:
                         direction === Direction.ltr
@@ -82,6 +88,13 @@ const styles: ComponentStyles<CallToActionClassNameContract, DesignSystem> = (
                     position: "relative",
                 },
             },
+            ...applyFocusVisible("& $callToAction_glyph", {
+                transform:
+                    direction === Direction.ltr
+                        ? "translateX(4px)"
+                        : "rotate(180deg) translateX(4px)",
+                position: "relative",
+            }),
         },
         callToAction_glyph: {
             fill: color,
@@ -104,7 +117,6 @@ const styles: ComponentStyles<CallToActionClassNameContract, DesignSystem> = (
             },
         },
         callToAction__justified: {
-            [applyLocalizedProperty("marginLeft", "marginRight", direction)]: "-10px",
             "& $callToAction_glyph": {
                 fill: primaryRestBackgroundColor,
             },
@@ -112,6 +124,11 @@ const styles: ComponentStyles<CallToActionClassNameContract, DesignSystem> = (
         callToAction__disabled: {
             "& $callToAction_glyph": {
                 fill: primaryDisabledColor,
+            },
+            "&:hover": {
+                "& $callToAction_glyph": {
+                    transform: "none",
+                },
             },
         },
     };

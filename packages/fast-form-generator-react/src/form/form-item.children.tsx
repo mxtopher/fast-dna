@@ -3,15 +3,12 @@ import * as React from "react";
 import { canUseDOM } from "exenv-es6";
 import { arrayMove, SortableContainer, SortableElement } from "react-sortable-hoc";
 import { get } from "lodash-es";
-import {
-    ChildOptionItem,
-    getChildOptionBySchemaId,
-} from "@microsoft/fast-data-utilities-react";
+import { getChildOptionBySchemaId } from "@microsoft/fast-data-utilities-react";
 import { SortableListItem, sortingProps } from "./sorting";
 import { cloneDeep, uniqueId } from "lodash-es";
 import { updateActiveSection } from "./form-section.props";
 import FormItemCommon from "./form-item";
-import { DataOnChange } from "./form.props";
+import { DataOnChange, FormChildOptionItem } from "./form.props";
 import { reactChildrenStringSchema } from "./form-item.children.text";
 import styles from "./form-item.children.style";
 import { FormItemChildrenClassNameContract } from "../class-name-contracts/";
@@ -57,7 +54,7 @@ export interface FormItemChildrenProps extends FormItemCommon {
     /**
      * The potential children to be added
      */
-    childOptions: ChildOptionItem[];
+    childOptions: FormChildOptionItem[];
 
     /**
      * The default children to be added
@@ -77,7 +74,7 @@ export enum Action {
 export interface FormItemChildrenState {
     childrenSearchTerm: string;
     indexOfSelectedFilteredChildOption: number;
-    filteredChildOptions: ChildOptionItem[];
+    filteredChildOptions: FormChildOptionItem[];
     hideChildrenList: boolean;
 }
 
@@ -90,6 +87,8 @@ class FormItemChildren extends FormItemBase<
     FormItemChildrenProps & ManagedClasses<FormItemChildrenClassNameContract>,
     FormItemChildrenState
 > {
+    public static displayName: string = "FormItemChildren";
+
     /**
      * Store a reference to the children list
      */
@@ -113,7 +112,7 @@ class FormItemChildren extends FormItemBase<
     /**
      * The child options available to be filtered
      */
-    private childOptions: ChildOptionItem[];
+    private childOptions: FormChildOptionItem[];
 
     constructor(
         props: FormItemChildrenProps & ManagedClasses<FormItemChildrenClassNameContract>
@@ -125,7 +124,7 @@ class FormItemChildren extends FormItemBase<
         this.filteredChildrenInput = React.createRef();
         this.selectedChildOption = React.createRef();
 
-        const defaultOptions: ChildOptionItem[] = [];
+        const defaultOptions: FormChildOptionItem[] = [];
 
         if (
             Array.isArray(this.props.defaultChildOptions) &&
@@ -235,7 +234,7 @@ class FormItemChildren extends FormItemBase<
      */
     private renderFilteredChildOptions(): JSX.Element[] {
         return this.state.filteredChildOptions.map(
-            (option: ChildOptionItem, index: number): JSX.Element => {
+            (option: FormChildOptionItem, index: number): JSX.Element => {
                 const selected: boolean =
                     this.state.filteredChildOptions[
                         this.state.indexOfSelectedFilteredChildOption
@@ -341,7 +340,7 @@ class FormItemChildren extends FormItemBase<
      * Generate the text to use as display for a child option
      */
     private generateChildOptionText(item: any): string {
-        const childOption: ChildOptionItem = getChildOptionBySchemaId(
+        const childOption: FormChildOptionItem = getChildOptionBySchemaId(
             item.id,
             this.childOptions
         );
@@ -397,6 +396,8 @@ class FormItemChildren extends FormItemBase<
     private renderExistingChildren(): JSX.Element {
         const props: any = Object.assign({}, sortingProps, {
             onSortEnd: this.handleSort,
+            helperClass: this.props.managedClasses
+                .formItemChildren_existingChildrenItem__sorting,
         });
 
         const childItems: JSX.Element | JSX.Element[] = this.renderExistingChildItems();
@@ -428,7 +429,7 @@ class FormItemChildren extends FormItemBase<
      * Keydown handler for the child option filter
      */
     private handleChildrenListInputKeydown = (
-        e: React.KeyboardEvent<HTMLButtonElement>
+        e: React.KeyboardEvent<HTMLInputElement>
     ): void => {
         switch (e.keyCode) {
             case KeyCodes.enter:
@@ -512,8 +513,8 @@ class FormItemChildren extends FormItemBase<
     private handleChildOptionFilterInputChange = (
         e: React.ChangeEvent<HTMLInputElement>
     ): void => {
-        const filteredChildOptions: ChildOptionItem[] = this.childOptions.filter(
-            (option: ChildOptionItem): boolean => {
+        const filteredChildOptions: FormChildOptionItem[] = this.childOptions.filter(
+            (option: FormChildOptionItem): boolean => {
                 return option.name.toLowerCase().includes(e.target.value.toLowerCase());
             }
         );
@@ -538,18 +539,16 @@ class FormItemChildren extends FormItemBase<
             typeof component === "object" &&
             typeof (component as ChildComponentConfig).props === "object"
         ) {
-            this.childOptions.forEach((childOption: ChildOptionItem) => {
+            this.childOptions.forEach((childOption: FormChildOptionItem) => {
                 if (childOption.schema.id === (component as ChildComponentConfig).id) {
                     childSchema = childOption.schema;
                 }
             });
         }
 
-        this.props.onUpdateActiveSection(
-            "",
-            `${this.getDataLocation(component, index)}`,
-            childSchema
-        );
+        const dataLocation: string = this.getDataLocation(component, index);
+
+        this.props.onUpdateActiveSection("", dataLocation, childSchema);
     }
 
     /**
@@ -568,7 +567,7 @@ class FormItemChildren extends FormItemBase<
     /**
      * Click event for adding a component
      */
-    private onAddComponent(item: ChildOptionItem): void {
+    private onAddComponent(item: FormChildOptionItem): void {
         const currentChildren: ChildComponent[] = this.getCurrentChildren(
             this.props.data
         );
@@ -601,7 +600,7 @@ class FormItemChildren extends FormItemBase<
      * Click factory for adding a child item
      */
     private clickAddComponentFactory = (
-        component: ChildOptionItem
+        component: FormChildOptionItem
     ): ((e: React.MouseEvent<HTMLLIElement>) => void) => {
         return (e: React.MouseEvent<HTMLLIElement>): void => {
             this.onAddComponent(component);
@@ -706,10 +705,11 @@ class FormItemChildren extends FormItemBase<
 
     private getChildComponents(
         currentChildren: ChildComponent[],
-        item: ChildOptionItem
+        item: FormChildOptionItem
     ): ChildComponent[] {
-        const components: ChildComponent[] = currentChildren;
-        components.push(this.getChildComponent(item));
+        const components: ChildComponent[] = [].concat(currentChildren);
+        const isString: boolean = item.schema === reactChildrenStringSchema;
+        components.push(this.getChildComponent(item, isString));
 
         return components;
     }
@@ -735,7 +735,14 @@ class FormItemChildren extends FormItemBase<
                 : [];
     }
 
-    private getChildComponent(item: ChildOptionItem): ChildComponentConfig {
+    private getChildComponent(
+        item: FormChildOptionItem,
+        isString?: boolean
+    ): ChildComponentConfig {
+        if (!!isString) {
+            return generateExampleData(item.schema, "");
+        }
+
         return {
             id: item.schema.id,
             props: generateExampleData(item.schema, ""),

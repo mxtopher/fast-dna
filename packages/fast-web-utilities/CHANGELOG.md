@@ -3,6 +3,45 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.3](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-web-utilities@3.1.2...@microsoft/fast-web-utilities@3.1.3) (2019-03-19)
+
+
+### Bug Fixes
+
+* update jest to fix build break ([#1531](https://github.com/Microsoft/fast-dna/issues/1531)) ([73ae6de](https://github.com/Microsoft/fast-dna/commit/73ae6de))
+
+
+
+
+
+## [3.1.2](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-web-utilities@3.1.1...@microsoft/fast-web-utilities@3.1.2) (2019-02-21)
+
+**Note:** Version bump only for package @microsoft/fast-web-utilities
+
+
+
+
+
+## [3.1.1](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-web-utilities@3.1.0...@microsoft/fast-web-utilities@3.1.1) (2019-02-07)
+
+**Note:** Version bump only for package @microsoft/fast-web-utilities
+
+
+
+
+
+<a name="3.1.0"></a>
+# [3.1.0](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-web-utilities@3.0.4...@microsoft/fast-web-utilities@3.1.0) (2019-01-26)
+
+
+### Features
+
+* add direction and localization helpers to fast-web-utilities ([#1330](https://github.com/Microsoft/fast-dna/issues/1330)) ([be0f603](https://github.com/Microsoft/fast-dna/commit/be0f603))
+
+
+
+
+
 <a name="3.0.4"></a>
 ## [3.0.4](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-web-utilities@3.0.3...@microsoft/fast-web-utilities@3.0.4) (2018-12-21)
 

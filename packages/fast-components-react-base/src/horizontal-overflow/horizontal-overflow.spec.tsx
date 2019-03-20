@@ -6,6 +6,7 @@ import HorizontalOverflow, {
     HorizontalOverflowClassNameContract,
 } from "./";
 import "raf/polyfill";
+import { ConstructableResizeObserver } from "./resize-observer";
 
 /*
  * Configure Enzyme
@@ -18,6 +19,12 @@ const id3: string = "image3";
 const id4: string = "image4";
 const id5: string = "image5";
 const id6: string = "image6";
+const id7: string = "image7";
+const id8: string = "image8";
+const id9: string = "image9";
+const id10: string = "image10";
+const id11: string = "image11";
+const id12: string = "image12";
 
 const imageSet1: JSX.Element[] = [
     <img id={id1} key={id1} src="https://placehold.it/200x200?text=1" />,
@@ -28,9 +35,19 @@ const imageSet1: JSX.Element[] = [
     <img id={id6} key={id6} src="https://placehold.it/200x200?text=6" />,
 ];
 
+const imageSet2: JSX.Element[] = [
+    <img id={id7} key={id7} src="https://placehold.it/200x200?text=7" />,
+    <img id={id8} key={id8} src="https://placehold.it/200x200?text=8" />,
+    <img id={id9} key={id9} src="https://placehold.it/200x200?text=9" />,
+    <img id={id10} key={id10} src="https://placehold.it/200x200?text=10" />,
+    <img id={id11} key={id11} src="https://placehold.it/200x200?text=11" />,
+    <img id={id12} key={id12} src="https://placehold.it/200x200?text=12" />,
+];
+
 const managedClasses: HorizontalOverflowClassNameContract = {
     horizontalOverflow: "horizontal-overflow-class",
     horizontalOverflow_contentRegion: "horizontal-overflow-items-class",
+    horizontalOverflow_item: "horizontal-overflow-item",
     horizontalOverflow_next: "horizontal-overflow-next-class",
     horizontalOverflow_previous: "horizontal-overflow-previous-class",
 };
@@ -47,6 +64,26 @@ describe("horizontal overflow", (): void => {
         expect(() => {
             shallow(<HorizontalOverflow />);
         }).not.toThrow();
+    });
+
+    test("should trigger a snapshot when children have been added", () => {
+        const callback: any = jest.fn();
+        const renderedWithImages: any = mount(
+            <HorizontalOverflow
+                managedClasses={managedClasses}
+                onOverflowChange={callback}
+            >
+                {imageSet1}
+            </HorizontalOverflow>
+        );
+
+        expect(renderedWithImages.find("li")).toHaveLength(6);
+        expect(callback).toHaveBeenCalledTimes(0);
+
+        renderedWithImages.setProps({ children: imageSet1.concat(imageSet2) });
+
+        expect(renderedWithImages.find("li")).toHaveLength(12);
+        expect(callback).toHaveBeenCalledTimes(1);
     });
 
     test("should be a list of items which contain each item", () => {
@@ -100,6 +137,21 @@ describe("horizontal overflow", (): void => {
                 .find("img")
                 .prop("id")
         ).toBe(id6);
+    });
+
+    test("should add a style of `display: inline-block` to the list item containing each item", () => {
+        const rendered: any = mount(
+            <HorizontalOverflow managedClasses={managedClasses}>
+                {imageSet1}
+            </HorizontalOverflow>
+        );
+
+        expect(
+            rendered
+                .find("li")
+                .at(0)
+                .props().style
+        ).toEqual({ display: "inline-block" });
     });
 
     test("should render a previous button if one is passed as a child with the appropriate slot prop", () => {
@@ -214,6 +266,26 @@ describe("horizontal overflow", (): void => {
                 )
         ).toBe(70);
     });
+
+    test("should update the scrolled distance when moving next in round numbers", () => {
+        const renderedWithImages: any = mount(
+            <HorizontalOverflow managedClasses={managedClasses}>
+                {imageSet1}
+            </HorizontalOverflow>
+        );
+
+        expect(
+            renderedWithImages
+                .instance()
+                ["getScrollDistanceFromDirection"](
+                    ButtonDirection.next,
+                    50,
+                    [10.01, 20.3, 20.5, 50.2, 20.9],
+                    0
+                )
+        ).toBe(31);
+    });
+
     test("should update the scrolled distance when moving previous to include the previous number of items that can be in view", () => {
         const renderedWithImages: any = mount(
             <HorizontalOverflow managedClasses={managedClasses}>
@@ -455,6 +527,57 @@ describe("horizontal overflow", (): void => {
         expect(resizeCallback).toHaveBeenCalledTimes(1);
         expect(window.removeEventListener).toHaveBeenCalled();
         expect(resizeCallback.mock.calls[0][0]).not.toBe("resize");
+    });
+    test("should create a resize observer if it is available", (): void => {
+        const ActualObserver: ConstructableResizeObserver = (window as WindowWithResizeObserver)
+            .ResizeObserver;
+        const construct: jest.Mock<any, any> = jest.fn();
+        // Mock the resize observer
+        class MockObserver {
+            public observe: jest.Mock<any, any> = jest.fn();
+            public unobserve: jest.Mock<any, any> = jest.fn();
+            public disconnect: jest.Mock<any, any> = jest.fn();
+            constructor() {
+                construct();
+            }
+        }
+        (window as WindowWithResizeObserver).ResizeObserver = MockObserver;
+
+        // Render the component
+        const rendered: any = mount(
+            <HorizontalOverflow managedClasses={managedClasses}>
+                {imageSet1}
+            </HorizontalOverflow>
+        );
+
+        expect(construct).toBeCalledTimes(1);
+        // Replace the window to it's original state
+        (window as WindowWithResizeObserver).ResizeObserver = ActualObserver;
+    });
+    test("should disconnect the resize observer when unmounted", (): void => {
+        const ActualObserver: ConstructableResizeObserver = (window as WindowWithResizeObserver)
+            .ResizeObserver;
+        const disconnect: jest.Mock<any, any> = jest.fn();
+        // Mock the resize observer
+        // tslint:disable-next-line:max-classes-per-file
+        class MockObserver {
+            public observe: jest.Mock<any, any> = jest.fn();
+            public unobserve: jest.Mock<any, any> = jest.fn();
+            public disconnect: jest.Mock<any, any> = disconnect;
+        }
+        (window as WindowWithResizeObserver).ResizeObserver = MockObserver;
+
+        const rendered: any = mount(
+            <HorizontalOverflow managedClasses={managedClasses}>
+                {imageSet1}
+            </HorizontalOverflow>
+        );
+        // Unmount the component to trigger lifecycle methods
+        rendered.unmount();
+
+        expect(disconnect).toBeCalledTimes(1);
+        // Replace the window to it's original state
+        (window as WindowWithResizeObserver).ResizeObserver = ActualObserver;
     });
 });
 /* tslint:enable:no-string-literal */

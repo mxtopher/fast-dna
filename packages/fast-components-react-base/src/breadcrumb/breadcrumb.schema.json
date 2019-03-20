@@ -12,8 +12,16 @@
     },
     "reactProperties": {
         "children": {
-            "title": "Building blocks",
+            "title": "Children",
             "type": "children"
+        },
+        "separator": {
+            "title": "Separator",
+            "type": "children",
+            "pluginId": "@microsoft/fast-components-react-base/breadcrumb/separator",
+            "defaults": [
+                "text"
+            ]
         }
     }
 }

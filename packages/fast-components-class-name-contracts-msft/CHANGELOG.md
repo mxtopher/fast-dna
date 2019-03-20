@@ -3,6 +3,70 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.9.0](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-components-class-name-contracts-msft@3.8.0...@microsoft/fast-components-class-name-contracts-msft@3.9.0) (2019-03-19)
+
+
+### Features
+
+* add auto suggest component ([#1551](https://github.com/Microsoft/fast-dna/issues/1551)) ([660fc41](https://github.com/Microsoft/fast-dna/commit/660fc41))
+
+
+
+
+
+# [3.8.0](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-components-class-name-contracts-msft@3.7.0...@microsoft/fast-components-class-name-contracts-msft@3.8.0) (2019-03-11)
+
+
+### Features
+
+* add base select component ([#1422](https://github.com/Microsoft/fast-dna/issues/1422)) ([b77a25e](https://github.com/Microsoft/fast-dna/commit/b77a25e))
+
+
+
+
+
+# [3.7.0](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-components-class-name-contracts-msft@3.6.0...@microsoft/fast-components-class-name-contracts-msft@3.7.0) (2019-03-01)
+
+
+### Features
+
+* update carousel functionality and design ([#1411](https://github.com/Microsoft/fast-dna/issues/1411)) ([fce4723](https://github.com/Microsoft/fast-dna/commit/fce4723))
+
+
+
+
+
+# [3.6.0](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-components-class-name-contracts-msft@3.5.1...@microsoft/fast-components-class-name-contracts-msft@3.6.0) (2019-02-28)
+
+
+### Features
+
+* add pivot msft component ([#1385](https://github.com/Microsoft/fast-dna/issues/1385)) ([e81f01c](https://github.com/Microsoft/fast-dna/commit/e81f01c))
+
+
+
+
+
+## [3.5.1](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-components-class-name-contracts-msft@3.5.0...@microsoft/fast-components-class-name-contracts-msft@3.5.1) (2019-02-21)
+
+**Note:** Version bump only for package @microsoft/fast-components-class-name-contracts-msft
+
+
+
+
+
+# [3.5.0](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-components-class-name-contracts-msft@3.4.0...@microsoft/fast-components-class-name-contracts-msft@3.5.0) (2019-02-07)
+
+
+### Features
+
+* add badge as an MSFT component ([#1278](https://github.com/Microsoft/fast-dna/issues/1278)) ([79ce26c](https://github.com/Microsoft/fast-dna/commit/79ce26c))
+* add carousel as a MSFT component ([#1338](https://github.com/Microsoft/fast-dna/issues/1338)) ([b23e2c1](https://github.com/Microsoft/fast-dna/commit/b23e2c1))
+
+
+
+
+
 # [3.4.0](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-components-class-name-contracts-msft@3.3.0...@microsoft/fast-components-class-name-contracts-msft@3.4.0) (2019-01-15)
 
 

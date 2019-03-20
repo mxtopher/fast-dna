@@ -1,6 +1,6 @@
 {
   "name": "@microsoft/fast-css-editor-react",
-  "version": "4.1.4",
+  "version": "4.4.0",
   "description": "A set of React components that allows the user to edit CSS properties",
   "sideEffects": false,
   "author": {
@@ -20,7 +20,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc -p ./tsconfig.json && npm run copy:all",
-    "build:app": "webpack --progress",
+    "build:app": "webpack --progress --mode=production",
     "clean:dist": "node ../../build/clean.js dist",
     "copy:all": "npm run copy:json-schema",
     "copy:json-schema": "node ../../build/copy-schemas.js",
@@ -28,10 +28,10 @@
     "prettier": "prettier --config ../../.prettierrc --write \"**/*.{ts,tsx}\"",
     "prettier:diff": "prettier --config ../../.prettierrc \"**/*.{ts,tsx}\" --list-different",
     "start": "webpack-dev-server",
-    "test": "npm run unit-tests && npm run tslint && npm run build:app",
+    "test": "npm run tslint && npm run unit-tests && npm run build:app",
     "tslint": "tslint -c ./tslint.json '**/*.ts{,x}'",
     "tslint:fix": "tslint -c ./tslint.json --fix '**/*.ts{,x}'",
-    "unit-tests": "jest --maxWorkers=4",
+    "unit-tests": "jest --maxWorkers=2",
     "unit-tests:watch": "jest --watch",
     "watch": "tsc -p ./tsconfig.json -w --preserveWatchOutput"
   },
@@ -60,7 +60,8 @@
       "ts",
       "tsx",
       "js",
-      "jsx"
+      "jsx",
+      "json"
     ],
     "moduleDirectories": [
       "node_modules",
@@ -71,31 +72,30 @@
     "@babel/core": "^7.0.0",
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-react": "^7.0.0",
-    "@microsoft/fast-application-utilities": "^3.0.4",
-    "@microsoft/fast-components-class-name-contracts-base": "^3.5.0",
-    "@microsoft/fast-development-site-react": "^3.2.6",
-    "@microsoft/fast-glyphs-msft": "^3.0.3",
-    "@microsoft/fast-jss-manager": "^3.0.8",
-    "@microsoft/fast-jss-manager-react": "^3.1.9",
-    "@microsoft/fast-jss-utilities": "^3.0.8",
-    "@microsoft/fast-sketch-library": "^3.0.3",
-    "@microsoft/fast-tslint-rules": "^3.0.1",
-    "@types/jest": "^23.3.5",
+    "@microsoft/fast-application-utilities": "^3.1.3",
+    "@microsoft/fast-components-class-name-contracts-base": "^3.10.0",
+    "@microsoft/fast-glyphs-msft": "^3.1.1",
+    "@microsoft/fast-jss-manager": "^3.0.13",
+    "@microsoft/fast-jss-manager-react": "^3.1.14",
+    "@microsoft/fast-jss-utilities": "^3.2.5",
+    "@microsoft/fast-sketch-library": "^3.0.5",
+    "@microsoft/fast-tslint-rules": "^3.0.2",
+    "@types/jest": "^24.0.11",
     "@types/lodash-es": "^4.17.0",
     "@types/node": "^9.4.6",
     "@types/react": "^16.4.18",
     "babel-core": "^7.0.0-bridge.0",
-    "babel-jest": "^23.6.0",
+    "babel-jest": "^24.5.0",
     "enzyme": "^3.7.0",
     "enzyme-adapter-react-16": "^1.7.0",
     "html-webpack-plugin": "^3.0.4",
-    "jest": "^23.6.0",
+    "jest": "^24.5.0",
     "lodash-es": "^4.0.0",
     "prettier": "1.14.3",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
     "react-test-renderer": "^16.6.3",
-    "ts-jest": "^23.10.4",
+    "ts-jest": "^24.0.0",
     "ts-loader": "^4.0.1",
     "tslint": "^5.9.1",
     "tslint-config-prettier": "^1.15.0",
@@ -115,7 +115,7 @@
     "react-dom": "^16.6.0"
   },
   "dependencies": {
-    "@microsoft/fast-components-foundation-react": "^2.1.1",
+    "@microsoft/fast-components-foundation-react": "^2.1.4",
     "utility-types": "^2.1.0"
   }
 }

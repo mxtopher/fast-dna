@@ -30,21 +30,23 @@ export interface TocItemManagedClasses {
     tocItem__active: string;
 }
 
-const tocItemActivePipeHeight: number = 20;
+const tocItemActivePipeHeight: number = 12;
 
 const style: ComponentStyles<TocItemManagedClasses, DevSiteDesignSystem> = {
     tocItem_anchor: {
         color: (config: DevSiteDesignSystem): string => {
-            return config.foregroundColor;
+            return config.foreground300 || devSiteDesignSystemDefaults.foreground300;
         },
         textDecoration: "none",
-        display: "block",
-        paddingLeft: toPx(48),
-        lineHeight: toPx(38),
+        display: "flex",
+        height: "20px",
+        alignItems: "center",
+        position: "relative",
+        paddingLeft: "46px",
         border: `${toPx(1)} solid transparent`,
         outline: "0",
         "&:hover": {
-            backgroundColor: "rgba(0, 0, 0, 0.04)",
+            backgroundColor: "rgba(255, 255, 255, 0.04)",
         },
         "&:focus": {
             border: (config: DevSiteDesignSystem): string => {
@@ -57,17 +59,16 @@ const style: ComponentStyles<TocItemManagedClasses, DevSiteDesignSystem> = {
         display: "block",
         position: "relative",
         color: (config: DevSiteDesignSystem): string => {
-            return config.foregroundColor;
+            return config.foreground300;
         },
     },
     tocItem__active: {
         background: (config: DevSiteDesignSystem): string => {
-            return config.backgroundColor;
+            return config.background100;
         },
         color: (config: DevSiteDesignSystem): string => {
-            return config.foregroundColor;
+            return config.foreground300;
         },
-        boxShadow: `${toPx(-2)} ${toPx(2)} ${toPx(4)} rgba(0, 0, 0, 0.06)`,
         "&::before": {
             content: "''",
             width: toPx(2),
@@ -78,7 +79,7 @@ const style: ComponentStyles<TocItemManagedClasses, DevSiteDesignSystem> = {
                 return config.brandColor;
             },
             position: "absolute",
-            left: "0",
+            left: "5px",
             top: `calc((100% / 2) - ${toPx(tocItemActivePipeHeight / 2)})`,
         },
         "&:hover": {

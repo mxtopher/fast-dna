@@ -3,30 +3,124 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [3.6.0](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-components-react-base@3.5.0...@microsoft/fast-components-react-base@3.6.0) (2019-01-15)
+# [3.11.0](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-components-react-base@3.10.0...@microsoft/fast-components-react-base@3.11.0) (2019-03-19)
 
 
 ### Bug Fixes
 
-* ensure onClick and onKeyDown unhandledProps on ContextMenuItem work as expected ([#1284](https://github.com/Microsoft/fast-dna/issues/1284)) ([dd3172f](https://github.com/Microsoft/fast-dna/commit/dd3172f))
-* make sure all components check for their base elements ([#1296](https://github.com/Microsoft/fast-dna/issues/1296)) ([4c622c4](https://github.com/Microsoft/fast-dna/commit/4c622c4))
-* normalized text area name and case ([#1294](https://github.com/Microsoft/fast-dna/issues/1294)) ([2ef6027](https://github.com/Microsoft/fast-dna/commit/2ef6027))
+* update jest to fix build break ([#1531](https://github.com/Microsoft/fast-dna/issues/1531)) ([73ae6de](https://github.com/Microsoft/fast-dna/commit/73ae6de))
+* update to disconnect the resize observer on component will unmount [#1529](https://github.com/Microsoft/fast-dna/issues/1529) ([164dd3c](https://github.com/Microsoft/fast-dna/commit/164dd3c))
 
 
 ### Features
 
-* add text area as a new component ([#1267](https://github.com/Microsoft/fast-dna/issues/1267)) ([0bdd43f](https://github.com/Microsoft/fast-dna/commit/0bdd43f))
+* add auto suggest component ([#1551](https://github.com/Microsoft/fast-dna/issues/1551)) ([660fc41](https://github.com/Microsoft/fast-dna/commit/660fc41))
+* add enhancements for auto-suggest ([#1528](https://github.com/Microsoft/fast-dna/issues/1528)) ([74a87f1](https://github.com/Microsoft/fast-dna/commit/74a87f1))
 
 
 
 
 
-# [3.5.0](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-components-react-base@3.4.1...@microsoft/fast-components-react-base@3.5.0) (2018-12-31)
+# [3.10.0](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-components-react-base@3.9.1...@microsoft/fast-components-react-base@3.10.0) (2019-03-11)
+
+
+### Bug Fixes
+
+* update focus events on keyboard close of menu ([#1505](https://github.com/Microsoft/fast-dna/issues/1505)) ([9b153ea](https://github.com/Microsoft/fast-dna/commit/9b153ea))
 
 
 ### Features
 
-* add support for render props to tabs  ([#1199](https://github.com/Microsoft/fast-dna/issues/1199)) ([19f482e](https://github.com/Microsoft/fast-dna/commit/19f482e))
+* add base select component ([#1422](https://github.com/Microsoft/fast-dna/issues/1422)) ([b77a25e](https://github.com/Microsoft/fast-dna/commit/b77a25e))
+
+
+
+
+
+## [3.9.1](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-components-react-base@3.9.0...@microsoft/fast-components-react-base@3.9.1) (2019-03-01)
+
+**Note:** Version bump only for package @microsoft/fast-components-react-base
+
+
+
+
+
+# [3.9.0](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-components-react-base@3.8.0...@microsoft/fast-components-react-base@3.9.0) (2019-02-28)
+
+
+### Bug Fixes
+
+* add additional wrapper to dialog to prevent subpixel aliasing due to css transforms ([#1431](https://github.com/Microsoft/fast-dna/issues/1431)) ([1fad8fe](https://github.com/Microsoft/fast-dna/commit/1fad8fe))
+* remove defaultValue from number field schema and examples ([#1426](https://github.com/Microsoft/fast-dna/issues/1426)) ([06c2d67](https://github.com/Microsoft/fast-dna/commit/06c2d67))
+
+
+### Features
+
+* add class name for horizontal overflow items ([#1448](https://github.com/Microsoft/fast-dna/issues/1448)) ([ffb6d87](https://github.com/Microsoft/fast-dna/commit/ffb6d87))
+* add focus features to ContextMenu ([#1446](https://github.com/Microsoft/fast-dna/issues/1446)) ([ab06478](https://github.com/Microsoft/fast-dna/commit/ab06478))
+
+
+
+
+
+# [3.8.0](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-components-react-base@3.7.0...@microsoft/fast-components-react-base@3.8.0) (2019-02-21)
+
+
+### Bug Fixes
+
+* account for partial pixels when scrolling by rounding up ([#1409](https://github.com/Microsoft/fast-dna/issues/1409)) ([ebb9e50](https://github.com/Microsoft/fast-dna/commit/ebb9e50))
+* Changing activeID on Tabs component causes type error ([#1366](https://github.com/Microsoft/fast-dna/issues/1366)) ([f23e927](https://github.com/Microsoft/fast-dna/commit/f23e927))
+* update to the Horizontal Overflow component to fire the overflow callback when more children have been added ([#1413](https://github.com/Microsoft/fast-dna/issues/1413)) ([69e24fb](https://github.com/Microsoft/fast-dna/commit/69e24fb))
+
+
+### Features
+
+* add additional functionality to listbox base ([#1381](https://github.com/Microsoft/fast-dna/issues/1381)) ([48d9c31](https://github.com/Microsoft/fast-dna/commit/48d9c31))
+* create number field as base and MSFT component ([#1371](https://github.com/Microsoft/fast-dna/issues/1371)) ([d440b5f](https://github.com/Microsoft/fast-dna/commit/d440b5f))
+
+
+
+
+
+# [3.7.0](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-components-react-base@3.6.3...@microsoft/fast-components-react-base@3.7.0) (2019-02-07)
+
+
+### Bug Fixes
+
+* child component class name assignment in tabs ([#1345](https://github.com/Microsoft/fast-dna/issues/1345)) ([769aa2b](https://github.com/Microsoft/fast-dna/commit/769aa2b))
+
+
+### Features
+
+* add badge as an MSFT component ([#1278](https://github.com/Microsoft/fast-dna/issues/1278)) ([79ce26c](https://github.com/Microsoft/fast-dna/commit/79ce26c))
+* add listbox base component ([#1304](https://github.com/Microsoft/fast-dna/issues/1304)) ([0ad4cbe](https://github.com/Microsoft/fast-dna/commit/0ad4cbe))
+
+
+
+
+
+<a name="3.6.3"></a>
+## [3.6.3](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-components-react-base@3.6.2...@microsoft/fast-components-react-base@3.6.3) (2019-01-26)
+
+**Note:** Version bump only for package @microsoft/fast-components-react-base
+
+
+
+
+
+<a name="3.6.2"></a>
+## [3.6.2](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-components-react-base@3.6.1...@microsoft/fast-components-react-base@3.6.2) (2019-01-22)
+
+**Note:** Version bump only for package @microsoft/fast-components-react-base
+
+
+
+
+
+<a name="3.6.1"></a>
+## [3.6.1](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-components-react-base@3.6.0...@microsoft/fast-components-react-base@3.6.1) (2019-01-22)
+
+**Note:** Version bump only for package @microsoft/fast-components-react-base
 
 
 

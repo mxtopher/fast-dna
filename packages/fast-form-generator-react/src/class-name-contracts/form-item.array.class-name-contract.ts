@@ -8,6 +8,7 @@ export default interface FormItemArrayClassNameContract {
     formItemArray_controlLabel: string;
     formItemArray_existingItemList: string;
     formItemArray_existingItemListItem: string;
+    formItemArray_existingItemListItem__sorting: string;
     formItemArray_existingItemListItemLink: string;
     formItemArray_existingItemRemoveButton: string;
 }

@@ -2,7 +2,7 @@
   "name": "@microsoft/fast-jss-manager-angular",
   "description": "Angular directive and component for managing component JSS stylesheets",
   "sideEffects": false,
-  "version": "3.0.8",
+  "version": "3.0.13",
   "author": {
     "name": "Microsoft",
     "url": "https://discord.gg/FcSNfg4"
@@ -28,7 +28,7 @@
     "tslint": "tslint -c ./tslint.json '**/*.ts'",
     "tslint:fix": "tslint -c ./tslint.json --fix '**/*.ts'",
     "tslint:watch": "node build/tslint-watch.js",
-    "unit-tests": "jest --maxWorkers=4",
+    "unit-tests": "jest --maxWorkers=2",
     "unit-tests:watch": "jest --watch",
     "watch": "npm run build -- -w --preserveWatchOutput"
   },
@@ -37,7 +37,7 @@
     "coverageThreshold": {
       "global": {
         "statements": 41,
-        "branches": 6,
+        "branches": 0,
         "functions": 20,
         "lines": 40
       }
@@ -68,22 +68,22 @@
     "@angular/platform-browser": "^5.2.9",
     "@angular/platform-browser-dynamic": "^5.2.9",
     "@babel/preset-env": "^7.1.0",
-    "@microsoft/fast-tslint-rules": "^3.0.1",
-    "@types/jest": "^22.1.2",
+    "@microsoft/fast-tslint-rules": "^3.0.2",
+    "@types/jest": "^24.0.11",
     "@types/lodash-es": "^4.17.0",
     "@types/node": "^9.4.6",
-    "babel-jest": "^22.4.3",
+    "babel-jest": "^24.5.0",
     "core-js": "^2.4.1",
     "fork-ts-checker-webpack-plugin": "^0.4.2",
     "html-webpack-plugin": "^3.2.0",
-    "jest": "^22.3.0",
+    "jest": "^24.5.0",
     "jest-preset-angular": "^5.2.1",
     "jss": "^9.8.0",
     "jss-preset-default": "^4.3.0",
     "lodash-es": "^4.0.0",
     "prettier": "1.14.3",
     "rxjs": "^5.5.6",
-    "ts-jest": "^22.0.4",
+    "ts-jest": "^24.0.0",
     "ts-loader": "^4.4.1",
     "tslint": "^5.9.1",
     "tslint-config-prettier": "^1.15.0",
@@ -105,6 +105,6 @@
     "zone.js": "^0.8.19"
   },
   "dependencies": {
-    "@microsoft/fast-jss-manager": "^3.0.8"
+    "@microsoft/fast-jss-manager": "^3.0.13"
   }
 }

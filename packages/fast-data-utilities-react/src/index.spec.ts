@@ -93,9 +93,51 @@ describe("mapSchemaLocationFromDataLocation", () => {
             anyOfSchema
         );
 
-        expect(schemaLocationRootProperty).toBe("anyOf.2.properties.nestedAnyOf");
+        expect(schemaLocationRootProperty).toBe("anyOf.2.properties.nestedAnyOf.anyOf.1");
         expect(schemaLocation).toBe(
             "anyOf.2.properties.nestedAnyOf.anyOf.1.properties.string"
+        );
+    });
+    test("should return a schema location from a non-object anyOf/oneOf location", () => {
+        const schemaLocationNumber: string = mapSchemaLocationFromDataLocation(
+            "numberOrString",
+            { numberOrString: 50 },
+            anyOfSchema
+        );
+        const schemaLocationString: string = mapSchemaLocationFromDataLocation(
+            "numberOrString",
+            { numberOrString: "foo" },
+            anyOfSchema
+        );
+
+        expect(schemaLocationNumber).toBe("anyOf.3.properties.numberOrString.anyOf.0");
+        expect(schemaLocationString).toBe("anyOf.3.properties.numberOrString.anyOf.1");
+    });
+    test("should return a schema location from a non-object anyOf/oneOf location in an array", () => {
+        const chemaLocationArrayOfStrings: string = mapSchemaLocationFromDataLocation(
+            "numberOrString.0",
+            { numberOrString: ["Foo"] },
+            anyOfSchema
+        );
+        const schemaLocationArrayOfObjects: string = mapSchemaLocationFromDataLocation(
+            "numberOrString[0].string",
+            { numberOrString: [{ string: "Foo" }] },
+            anyOfSchema
+        );
+        const schemaLocationArrayOfNumbers: string = mapSchemaLocationFromDataLocation(
+            "numberOrString[0]",
+            { numberOrString: [1, 2, 3] },
+            anyOfSchema
+        );
+
+        expect(chemaLocationArrayOfStrings).toBe(
+            "anyOf.3.properties.numberOrString.anyOf.2.items"
+        );
+        expect(schemaLocationArrayOfObjects).toBe(
+            "anyOf.3.properties.numberOrString.anyOf.3.items.anyOf.0.properties.string"
+        );
+        expect(schemaLocationArrayOfNumbers).toBe(
+            "anyOf.3.properties.numberOrString.anyOf.3.items.anyOf.1"
         );
     });
     test("should return a schema location from a child location", () => {
@@ -338,9 +380,10 @@ describe("getDataLocationsOfPlugins", () => {
             childOptions
         );
 
-        expect(dataLocationsOfPlugins).toHaveLength(2);
-        expect(dataLocationsOfPlugins[0].dataLocation).toBe("children.props.render");
-        expect(dataLocationsOfPlugins[1].dataLocation).toBe(
+        expect(dataLocationsOfPlugins).toHaveLength(3);
+        expect(dataLocationsOfPlugins[0].dataLocation).toBe("children.props.render[0]");
+        expect(dataLocationsOfPlugins[1].dataLocation).toBe("children.props.render[1]");
+        expect(dataLocationsOfPlugins[2].dataLocation).toBe(
             "restrictedWithChildren.props.render"
         );
     });
@@ -362,6 +405,79 @@ describe("getDataLocationsOfPlugins", () => {
 
         expect(dataLocationsOfPlugins).toHaveLength(1);
         expect(dataLocationsOfPlugins[0].dataLocation).toBe("children.props.array");
+    });
+    test("should return data locations of children in an array of items", () => {
+        const data: any = {
+            arrayObject: [
+                {
+                    content: {
+                        id: childrenSchema.id,
+                        props: {
+                            children: "foo",
+                        },
+                    },
+                },
+                {
+                    content: {
+                        id: childrenSchema.id,
+                        props: {
+                            children: "bar",
+                        },
+                    },
+                },
+            ],
+        };
+
+        const dataLocationsOfPlugins: PluginLocation[] = getDataLocationsOfPlugins(
+            childrenWithPluginPropsSchema,
+            data,
+            childOptions
+        );
+
+        expect(dataLocationsOfPlugins).toHaveLength(2);
+        expect(dataLocationsOfPlugins[0].dataLocation).toBe("arrayObject[0].content");
+        expect(dataLocationsOfPlugins[1].dataLocation).toBe("arrayObject[1].content");
+    });
+    test("should return data locations of nested children in an array of items", () => {
+        const data: any = {
+            children: {
+                id: childrenWithPluginPropsSchema.id,
+                props: {
+                    arrayObject: [
+                        {
+                            content: {
+                                id: childrenSchema.id,
+                                props: {
+                                    children: "foo",
+                                },
+                            },
+                        },
+                        {
+                            content: {
+                                id: childrenSchema.id,
+                                props: {
+                                    children: "bat",
+                                },
+                            },
+                        },
+                    ],
+                },
+            },
+        };
+
+        const dataLocationsOfPlugins: PluginLocation[] = getDataLocationsOfPlugins(
+            childrenSchema,
+            data,
+            childOptions
+        );
+
+        expect(dataLocationsOfPlugins).toHaveLength(2);
+        expect(dataLocationsOfPlugins[0].dataLocation).toBe(
+            "children.props.arrayObject[0].content"
+        );
+        expect(dataLocationsOfPlugins[1].dataLocation).toBe(
+            "children.props.arrayObject[1].content"
+        );
     });
 });
 
@@ -717,6 +833,68 @@ describe("mapDataToComponent", () => {
         expect(typeof mappedData.render[1]).toBe("function");
         expect(mappedData.render[1](testClass2).type.displayName).toEqual("Children");
         expect(mappedData.render[1](testClass2).props.className).toBe(testClass2);
+    });
+    test("should map children to a plugin nested inside a child", () => {
+        const data: any = {
+            children: {
+                id: childrenWithPluginPropsSchema.id,
+                props: {
+                    render: {
+                        id: textFieldSchema.id,
+                        props: {},
+                    },
+                },
+            },
+        };
+
+        const testClass: string = "Foo";
+        const mappedData: any = mapDataToComponent(childrenSchema, data, childOptions, [
+            new MapChildrenPropToCallbackPassingClassName({
+                id: childrenPluginResolverId,
+            }),
+        ]);
+
+        expect(typeof get(mappedData, "children.type")).toBe("function");
+        expect(get(mappedData, "children.type.displayName")).toBe(
+            "ChildrenWithRenderProp"
+        );
+        expect(get(mappedData, "children.props.render")(testClass).props.className).toBe(
+            testClass
+        );
+    });
+    test("should map a child nested inside a children plugin", () => {
+        const data: any = {
+            render: {
+                id: childrenSchema.id,
+                props: {
+                    children: {
+                        id: textFieldSchema.id,
+                        props: {},
+                    },
+                },
+            },
+        };
+
+        const testClass: string = "Foo";
+        const mappedData: any = mapDataToComponent(
+            childrenWithPluginPropsSchema,
+            data,
+            childOptions,
+            [
+                new MapChildrenPropToCallbackPassingClassName({
+                    id: childrenPluginResolverId,
+                }),
+            ]
+        );
+
+        const executedRenderProp: any = get(mappedData, "render")(testClass);
+
+        expect(executedRenderProp.props.className).toBe(testClass);
+
+        expect(typeof get(executedRenderProp, "props.children.type")).toBe("function");
+        expect(get(executedRenderProp, "props.children.type.displayName")).toBe(
+            "Text field"
+        );
     });
     test("should not map data to a plugin if a plugin is not available but a pluginId has been specified", () => {
         const data: any = {

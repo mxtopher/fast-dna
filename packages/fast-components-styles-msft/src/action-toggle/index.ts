@@ -110,7 +110,7 @@ const styles: ComponentStyles<ActionToggleClassNameContract, DesignSystem> = (
         actionToggle_selectedGlyph: {
             display: "inline-block",
             position: "relative",
-            width: "8px",
+            maxWidth: "16px",
         },
         actionToggle_unselectedGlyph: {
             display: "inline-block",
@@ -134,7 +134,6 @@ const styles: ComponentStyles<ActionToggleClassNameContract, DesignSystem> = (
             },
         },
         actionToggle__justified: {
-            [applyLocalizedProperty("marginLeft", "marginRight", direction)]: "-10px",
             "& $actionToggle_selectedGlyph, & $actionToggle_unselectedGlyph": {
                 fill: primaryRestBackgroundColor,
             },

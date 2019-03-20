@@ -3,40 +3,137 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [3.6.0](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-components-styles-msft@3.5.0...@microsoft/fast-components-styles-msft@3.6.0) (2019-01-15)
-
-
-### Bug Fixes
-
-* ensure font family is inherited for inputs rather than defaulting to system-ui ([#1281](https://github.com/Microsoft/fast-dna/issues/1281)) ([d00b578](https://github.com/Microsoft/fast-dna/commit/d00b578))
-* remove browser inner-focus rect applied on HTML button elements in Firefox ([#1280](https://github.com/Microsoft/fast-dna/issues/1280)) ([cebe717](https://github.com/Microsoft/fast-dna/commit/cebe717))
-* update button to properly target fill color based on appearance ([#1272](https://github.com/Microsoft/fast-dna/issues/1272)) ([5463135](https://github.com/Microsoft/fast-dna/commit/5463135))
-* update disabled action toggle glyph color ([#1298](https://github.com/Microsoft/fast-dna/issues/1298)) ([0a5689f](https://github.com/Microsoft/fast-dna/commit/0a5689f))
+# [3.14.0](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-components-styles-msft@3.13.0...@microsoft/fast-components-styles-msft@3.14.0) (2019-03-19)
 
 
 ### Features
 
-* add action toggle component  ([#1257](https://github.com/Microsoft/fast-dna/issues/1257)) ([d93508e](https://github.com/Microsoft/fast-dna/commit/d93508e))
-* add render props for before and after slots in button ([#1266](https://github.com/Microsoft/fast-dna/issues/1266)) ([e4ecc12](https://github.com/Microsoft/fast-dna/commit/e4ecc12))
-* add rounded corners to MSFT card and dialog components ([#1285](https://github.com/Microsoft/fast-dna/issues/1285)) ([53da6f4](https://github.com/Microsoft/fast-dna/commit/53da6f4))
-* add text area as a new component ([#1267](https://github.com/Microsoft/fast-dna/issues/1267)) ([0bdd43f](https://github.com/Microsoft/fast-dna/commit/0bdd43f))
-* update MSFT headings to semibold ([#1268](https://github.com/Microsoft/fast-dna/issues/1268)) ([2327b66](https://github.com/Microsoft/fast-dna/commit/2327b66))
+* add auto suggest component ([#1551](https://github.com/Microsoft/fast-dna/issues/1551)) ([660fc41](https://github.com/Microsoft/fast-dna/commit/660fc41))
 
 
 
 
 
-# [3.5.0](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-components-styles-msft@3.4.1...@microsoft/fast-components-styles-msft@3.5.0) (2018-12-31)
+# [3.13.0](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-components-styles-msft@3.12.0...@microsoft/fast-components-styles-msft@3.13.0) (2019-03-11)
 
 
 ### Bug Fixes
 
-* remove margins from components and fix text-field placeholder color in disabled state ([#1240](https://github.com/Microsoft/fast-dna/issues/1240)) ([2871d66](https://github.com/Microsoft/fast-dna/commit/2871d66))
+* const in carousel styles is missing closing ) ([#1496](https://github.com/Microsoft/fast-dna/issues/1496)) ([6fdd98c](https://github.com/Microsoft/fast-dna/commit/6fdd98c))
+* remove -10 margin from components that use Justified appearance ([#1519](https://github.com/Microsoft/fast-dna/issues/1519)) ([b3a495c](https://github.com/Microsoft/fast-dna/commit/b3a495c))
+* update call to action to handle disabled state correctly ([#1477](https://github.com/Microsoft/fast-dna/issues/1477)) ([9c6e75f](https://github.com/Microsoft/fast-dna/commit/9c6e75f))
 
 
 ### Features
 
-* add text action as a component ([#1208](https://github.com/Microsoft/fast-dna/issues/1208)) ([d7a7686](https://github.com/Microsoft/fast-dna/commit/d7a7686))
+* add base select component ([#1422](https://github.com/Microsoft/fast-dna/issues/1422)) ([b77a25e](https://github.com/Microsoft/fast-dna/commit/b77a25e))
+
+
+
+
+
+# [3.12.0](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-components-styles-msft@3.11.0...@microsoft/fast-components-styles-msft@3.12.0) (2019-03-01)
+
+
+### Bug Fixes
+
+* incorrect name in dialog stylesheet caused styles to not be applied ([#1472](https://github.com/Microsoft/fast-dna/issues/1472)) ([4929884](https://github.com/Microsoft/fast-dna/commit/4929884))
+
+
+### Features
+
+* update carousel functionality and design ([#1411](https://github.com/Microsoft/fast-dna/issues/1411)) ([fce4723](https://github.com/Microsoft/fast-dna/commit/fce4723))
+
+
+
+
+
+# [3.11.0](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-components-styles-msft@3.10.0...@microsoft/fast-components-styles-msft@3.11.0) (2019-02-28)
+
+
+### Bug Fixes
+
+* add additional wrapper to dialog to prevent subpixel aliasing due to css transforms ([#1431](https://github.com/Microsoft/fast-dna/issues/1431)) ([1fad8fe](https://github.com/Microsoft/fast-dna/commit/1fad8fe))
+* change badge accent color to background color ([#1427](https://github.com/Microsoft/fast-dna/issues/1427)) ([12b0b2a](https://github.com/Microsoft/fast-dna/commit/12b0b2a))
+
+
+### Features
+
+* add pivot msft component ([#1385](https://github.com/Microsoft/fast-dna/issues/1385)) ([e81f01c](https://github.com/Microsoft/fast-dna/commit/e81f01c))
+
+
+
+
+
+# [3.10.0](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-components-styles-msft@3.9.0...@microsoft/fast-components-styles-msft@3.10.0) (2019-02-21)
+
+
+### Bug Fixes
+
+* remove focus visible from text field in text action ([#1419](https://github.com/Microsoft/fast-dna/issues/1419)) ([2570ad4](https://github.com/Microsoft/fast-dna/commit/2570ad4))
+
+
+### Features
+
+* add common MSFT input field style pattern ([#1375](https://github.com/Microsoft/fast-dna/issues/1375)) ([3ff26f9](https://github.com/Microsoft/fast-dna/commit/3ff26f9))
+* create number field as base and MSFT component ([#1371](https://github.com/Microsoft/fast-dna/issues/1371)) ([d440b5f](https://github.com/Microsoft/fast-dna/commit/d440b5f))
+
+
+
+
+
+# [3.9.0](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-components-styles-msft@3.8.0...@microsoft/fast-components-styles-msft@3.9.0) (2019-02-07)
+
+
+### Bug Fixes
+
+* card and dialog shadows should always be black regardless of theming ([#1364](https://github.com/Microsoft/fast-dna/issues/1364)) ([c5bda31](https://github.com/Microsoft/fast-dna/commit/c5bda31))
+* context menu styles to match new designs ([#1355](https://github.com/Microsoft/fast-dna/issues/1355)) ([8a3295d](https://github.com/Microsoft/fast-dna/commit/8a3295d))
+
+
+### Features
+
+* add badge as an MSFT component ([#1278](https://github.com/Microsoft/fast-dna/issues/1278)) ([79ce26c](https://github.com/Microsoft/fast-dna/commit/79ce26c))
+* add carousel as a MSFT component ([#1338](https://github.com/Microsoft/fast-dna/issues/1338)) ([b23e2c1](https://github.com/Microsoft/fast-dna/commit/b23e2c1))
+
+
+
+
+
+<a name="3.8.0"></a>
+# [3.8.0](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-components-styles-msft@3.7.1...@microsoft/fast-components-styles-msft@3.8.0) (2019-01-26)
+
+
+### Features
+
+* add focus-visible support ([#1335](https://github.com/Microsoft/fast-dna/issues/1335)) ([1360ef6](https://github.com/Microsoft/fast-dna/commit/1360ef6))
+
+
+
+
+
+<a name="3.7.1"></a>
+## [3.7.1](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-components-styles-msft@3.7.0...@microsoft/fast-components-styles-msft@3.7.1) (2019-01-22)
+
+**Note:** Version bump only for package @microsoft/fast-components-styles-msft
+
+
+
+
+
+<a name="3.7.0"></a>
+# [3.7.0](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-components-styles-msft@3.6.0...@microsoft/fast-components-styles-msft@3.7.0) (2019-01-22)
+
+
+### Bug Fixes
+
+* adjust text action height to be 32 total pixels ([#1306](https://github.com/Microsoft/fast-dna/issues/1306)) ([16adaf1](https://github.com/Microsoft/fast-dna/commit/16adaf1))
+
+
+### Features
+
+* add generic function for deep merging two objects for use with design system defaults ([#1305](https://github.com/Microsoft/fast-dna/issues/1305)) ([25389f0](https://github.com/Microsoft/fast-dna/commit/25389f0))
+* deprecate breakpoint interface, breakpoint values, and applyBreakpoint function ([#1316](https://github.com/Microsoft/fast-dna/issues/1316)) ([2a09680](https://github.com/Microsoft/fast-dna/commit/2a09680))
 
 
 

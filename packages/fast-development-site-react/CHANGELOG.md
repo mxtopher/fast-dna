@@ -3,7 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [3.2.6](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-development-site-react@3.2.5...@microsoft/fast-development-site-react@3.2.6) (2019-01-15)
+## [3.4.4](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-development-site-react@3.4.3...@microsoft/fast-development-site-react@3.4.4) (2019-03-19)
+
+
+### Bug Fixes
+
+* update component status bar to always reflect the active component ([#1513](https://github.com/Microsoft/fast-dna/issues/1513)) ([37a64c0](https://github.com/Microsoft/fast-dna/commit/37a64c0))
+
+
+
+
+
+## [3.4.3](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-development-site-react@3.4.2...@microsoft/fast-development-site-react@3.4.3) (2019-03-11)
 
 **Note:** Version bump only for package @microsoft/fast-development-site-react
 
@@ -11,9 +22,77 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-## [3.2.5](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-development-site-react@3.2.4...@microsoft/fast-development-site-react@3.2.5) (2018-12-31)
+## [3.4.2](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-development-site-react@3.4.1...@microsoft/fast-development-site-react@3.4.2) (2019-03-01)
 
 **Note:** Version bump only for package @microsoft/fast-development-site-react
+
+
+
+
+
+## [3.4.1](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-development-site-react@3.4.0...@microsoft/fast-development-site-react@3.4.1) (2019-02-28)
+
+**Note:** Version bump only for package @microsoft/fast-development-site-react
+
+
+
+
+
+# [3.4.0](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-development-site-react@3.3.3...@microsoft/fast-development-site-react@3.4.0) (2019-02-21)
+
+
+### Bug Fixes
+
+* font size in fast form and fast site ([#1369](https://github.com/Microsoft/fast-dna/issues/1369)) ([90de283](https://github.com/Microsoft/fast-dna/commit/90de283))
+
+
+### Features
+
+* add a component navigation and css editor ([#1402](https://github.com/Microsoft/fast-dna/issues/1402)) ([0e5002e](https://github.com/Microsoft/fast-dna/commit/0e5002e))
+
+
+
+
+
+## [3.3.3](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-development-site-react@3.3.2...@microsoft/fast-development-site-react@3.3.3) (2019-02-07)
+
+**Note:** Version bump only for package @microsoft/fast-development-site-react
+
+
+
+
+
+<a name="3.3.2"></a>
+## [3.3.2](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-development-site-react@3.3.1...@microsoft/fast-development-site-react@3.3.2) (2019-01-26)
+
+**Note:** Version bump only for package @microsoft/fast-development-site-react
+
+
+
+
+
+<a name="3.3.1"></a>
+## [3.3.1](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-development-site-react@3.3.0...@microsoft/fast-development-site-react@3.3.1) (2019-01-22)
+
+
+### Bug Fixes
+
+* Margin should be remove don component view toggle ([#1333](https://github.com/Microsoft/fast-dna/issues/1333)) ([804faff](https://github.com/Microsoft/fast-dna/commit/804faff))
+* prevent scroll bar from pushing content in config panel ([#1334](https://github.com/Microsoft/fast-dna/issues/1334)) ([a458c22](https://github.com/Microsoft/fast-dna/commit/a458c22))
+
+
+
+
+
+<a name="3.3.0"></a>
+# [3.3.0](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-development-site-react@3.2.6...@microsoft/fast-development-site-react@3.3.0) (2019-01-22)
+
+
+### Features
+
+* add dark theme and set as default to fast-development-site ([#1283](https://github.com/Microsoft/fast-dna/issues/1283)) ([4679b46](https://github.com/Microsoft/fast-dna/commit/4679b46))
+* add form plugin option to development site ([#1321](https://github.com/Microsoft/fast-dna/issues/1321)) ([3e131e3](https://github.com/Microsoft/fast-dna/commit/3e131e3))
+* increase density os dev site ([#1319](https://github.com/Microsoft/fast-dna/issues/1319)) ([dfa7e58](https://github.com/Microsoft/fast-dna/commit/dfa7e58))
 
 
 

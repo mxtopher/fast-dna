@@ -9,7 +9,6 @@ import Select, { FormItemSelectProps } from "./form-item.select";
 configure({ adapter: new Adapter() });
 
 const selectProps: FormItemSelectProps = {
-    key: "1",
     index: 1,
     dataLocation: "",
     data: "",
@@ -37,7 +36,7 @@ describe("Select", () => {
 
         expect(rendered.find("select")).toHaveLength(0);
     });
-    xtest("should generate an HTML select element when there is only one option and select is optional", () => {
+    test("should generate an HTML select element when there is only one option and select is optional", () => {
         const rendered: any = mount(<Select {...selectProps} options={["foo"]} />);
 
         expect(rendered.find("select")).toHaveLength(1);

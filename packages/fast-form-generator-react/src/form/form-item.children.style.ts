@@ -1,18 +1,16 @@
-import { ellipsis, focusVisible, toPx } from "@microsoft/fast-jss-utilities";
+import { ellipsis } from "@microsoft/fast-jss-utilities";
+import { accent, background100, foreground300 } from "./form.constants.style";
 import {
     applyAriaHiddenStyles,
     applyCleanListStyle,
     applyControl,
+    applyControlWrapper,
     applyGlobalStyle,
     applyInputStyle,
     applyLabelStyle,
     applyRemoveItemStyle,
     applySoftRemove,
-    colors,
-    insetStrongBoxShadow,
-    lines,
-    rightArrow,
-} from "../utilities/form-input.style";
+} from "./form.utilities.style";
 import { ComponentStyles, CSSRules } from "@microsoft/fast-jss-manager";
 import { FormItemChildrenClassNameContract } from "../class-name-contracts/";
 
@@ -24,6 +22,7 @@ const styles: ComponentStyles<FormItemChildrenClassNameContract, {}> = {
         position: "relative",
         display: "flex",
         flexDirection: "column",
+        ...applyControlWrapper(),
     },
     formItemChildren_control: {
         ...applyControl(),
@@ -31,28 +30,29 @@ const styles: ComponentStyles<FormItemChildrenClassNameContract, {}> = {
     },
     formItemChildren_controlLabel: {
         ...applyLabelStyle(),
-        display: "block",
-        marginTop: toPx(12),
     },
     formItemChildren_existingChildren: {
         ...applyCleanListStyle(),
     },
+    formItemChildren_existingChildrenItem__sorting: {
+        fontSize: "12px",
+        color: foreground300,
+        cursor: "pointer",
+    },
     formItemChildren_existingChildrenItem: {
         position: "relative",
-        height: "48px",
-        paddingLeft: "26px",
+        height: "30px",
+        marginLeft: "-10px",
+        paddingLeft: "10px",
+        fontSize: "12px",
+        cursor: "pointer",
         display: "flex",
         alignItems: "center",
-        "&::before": {
-            position: "absolute",
-            content: "''",
-            opacity: ".6",
-            pointerEvents: "none",
-            top: "calc(50% - 8px)",
-            width: toPx(16),
-            height: toPx(16),
-            background: lines,
-            left: "0",
+        "&$formItemChildren_existingChildrenItem__sorting": {
+            backgroundColor: background100,
+        },
+        "&:hover": {
+            backgroundColor: "rgba(255, 255, 255, 0.04)",
         },
     },
     formItemChildren_existingChildrenItemLink: {
@@ -64,33 +64,48 @@ const styles: ComponentStyles<FormItemChildrenClassNameContract, {}> = {
             verticalAlign: "bottom",
         },
     },
-    formItemChildren_existingChildrenItemName: {},
+    formItemChildren_existingChildrenItemName: {
+        overflow: "hidden",
+        display: "inline-block",
+        width: "100%",
+        textOverflow: "ellipsis",
+        whiteSpace: "nowrap",
+    },
     formItemChildren_existingChildrenItemContent: {},
     formItemChildren_childrenList: {
         ...applyCleanListStyle(),
         ...applyAriaHiddenStyles(),
-        background: colors.white,
+        color: foreground300,
+        msOverflowStyle: "none",
+        background: background100,
         maxHeight: "200px",
-        overflow: "auto",
         position: "absolute",
+        width: "calc(100% - 30px)",
         right: "0",
         left: "0",
         zIndex: "1",
+        overflow: "auto",
+        "&::-webkit-scrollbar": {
+            width: "0 !important",
+        },
     },
     formItemChildren_childrenListItem: {
-        padding: "10px 8px 10px",
-        fontSize: "14px",
-        textAlign: "left",
+        minHeight: "30px",
+        fontSize: "12px",
+        lineHeight: "16px",
+        display: "flex",
+        alignItems: "center",
+        padding: "0 5px",
         '&[aria-selected="true"]': {
-            background: colors.pink,
+            background: accent,
         },
     },
     formItemChildren_childrenListControl: {
         position: "relative",
+        width: "calc(100% - 30px)",
     },
     formItemChildren_childrenListInput: {
         ...applyInputStyle(),
-        marginTop: "8px",
         paddingRight: "36px",
         width: "100%",
     },
@@ -98,14 +113,19 @@ const styles: ComponentStyles<FormItemChildrenClassNameContract, {}> = {
         position: "absolute",
         right: "0",
         bottom: "0",
-        height: "36px",
-        width: "36px",
-        background: rightArrow,
-        transform: "rotate(90deg)",
-        border: "0",
-        [`&${focusVisible()}`]: {
-            ...insetStrongBoxShadow(colors.pink),
-            outline: "none",
+        border: "none",
+        height: "20px",
+        width: "20px",
+        outline: "none",
+        background: "none",
+        "&::before": {
+            content: "''",
+            position: "absolute",
+            top: "9px",
+            right: "4px",
+            borderLeft: "3px solid transparent",
+            borderRight: "3px solid transparent",
+            borderTop: `3px solid ${foreground300}`,
         },
     },
     formItemChildren_delete: {
@@ -117,7 +137,6 @@ const styles: ComponentStyles<FormItemChildrenClassNameContract, {}> = {
     formItemChildren_deleteButton: {
         ...applyRemoveItemStyle(),
         cursor: "pointer",
-        top: "calc(50% - 18px)",
     },
 };
 

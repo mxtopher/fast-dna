@@ -3,7 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [3.0.5](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-animation@3.0.4...@microsoft/fast-animation@3.0.5) (2019-01-15)
+## [3.0.10](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-animation@3.0.9...@microsoft/fast-animation@3.0.10) (2019-03-19)
+
+
+### Bug Fixes
+
+* update jest to fix build break ([#1531](https://github.com/Microsoft/fast-dna/issues/1531)) ([73ae6de](https://github.com/Microsoft/fast-dna/commit/73ae6de))
+
+
+
+
+
+## [3.0.9](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-animation@3.0.8...@microsoft/fast-animation@3.0.9) (2019-02-21)
 
 **Note:** Version bump only for package @microsoft/fast-animation
 
@@ -11,7 +22,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-## [3.0.4](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-animation@3.0.3...@microsoft/fast-animation@3.0.4) (2018-12-31)
+## [3.0.8](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-animation@3.0.7...@microsoft/fast-animation@3.0.8) (2019-02-07)
 
 **Note:** Version bump only for package @microsoft/fast-animation
 
@@ -19,7 +30,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-## [3.0.3](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-animation@3.0.2...@microsoft/fast-animation@3.0.3) (2018-11-07)
+<a name="3.0.7"></a>
+## [3.0.7](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-animation@3.0.6...@microsoft/fast-animation@3.0.7) (2019-01-26)
 
 **Note:** Version bump only for package @microsoft/fast-animation
 
@@ -27,33 +39,10 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-## [3.0.2](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-animation@3.0.1...@microsoft/fast-animation@3.0.2) (2018-11-05)
+<a name="3.0.6"></a>
+## [3.0.6](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-animation@3.0.5...@microsoft/fast-animation@3.0.6) (2019-01-22)
 
 **Note:** Version bump only for package @microsoft/fast-animation
-
-
-
-
-
-## [3.0.1](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-animation@3.0.0...@microsoft/fast-animation@3.0.1) (2018-10-27)
-
-**Note:** Version bump only for package @microsoft/fast-animation
-
-
-
-
-
-# [3.0.0](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-animation@2.2.0...@microsoft/fast-animation@3.0.0) (2018-10-06)
-
-
-### chore
-
-* remove the 'I' from interfaces ([#997](https://github.com/Microsoft/fast-dna/issues/997)) ([d924df8](https://github.com/Microsoft/fast-dna/commit/d924df8))
-
-
-### BREAKING CHANGES
-
-* Interfaces have been renamed to remove the "I".
 
 
 

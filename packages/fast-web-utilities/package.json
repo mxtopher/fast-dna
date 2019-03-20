@@ -1,7 +1,7 @@
 {
   "name": "@microsoft/fast-web-utilities",
   "description": "FAST web utilities",
-  "version": "3.0.4",
+  "version": "3.1.3",
   "author": {
     "name": "Microsoft",
     "url": "https://discord.gg/FcSNfg4"
@@ -25,7 +25,7 @@
     "test": "npm run tslint && npm run unit-tests",
     "tslint": "tslint -c ./tslint.json '**/*.ts{,x}'",
     "tslint:fix": "tslint -c ./tslint.json --fix '**/*.ts{,x}'",
-    "unit-tests": "jest --maxWorkers=4",
+    "unit-tests": "jest --maxWorkers=2",
     "unit-tests:watch": "jest --watch",
     "watch": "npm run build -- -w --preserveWatchOutput"
   },
@@ -60,16 +60,16 @@
   "devDependencies": {
     "@babel/core": "^7.0.0",
     "@babel/preset-env": "^7.1.0",
-    "@microsoft/fast-tslint-rules": "^3.0.1",
-    "@types/jest": "^23.3.5",
+    "@microsoft/fast-tslint-rules": "^3.0.2",
+    "@types/jest": "^24.0.11",
     "@types/lodash-es": "^4.17.0",
     "babel-core": "^7.0.0-bridge.0",
-    "babel-jest": "^23.6.0",
+    "babel-jest": "^24.5.0",
     "exenv-es6": "^1.0.0",
-    "jest": "^23.6.0",
+    "jest": "^24.5.0",
     "lodash-es": "^4.17.10",
     "prettier": "1.14.3",
-    "ts-jest": "^23.10.4",
+    "ts-jest": "^24.0.0",
     "ts-loader": "^4.0.1",
     "tslint": "^5.9.1",
     "tslint-config-prettier": "^1.15.0",

@@ -3,7 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [3.0.8](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-jss-utilities@3.0.7...@microsoft/fast-jss-utilities@3.0.8) (2019-01-15)
+## [3.2.5](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-jss-utilities@3.2.4...@microsoft/fast-jss-utilities@3.2.5) (2019-03-19)
+
+
+### Bug Fixes
+
+* update jest to fix build break ([#1531](https://github.com/Microsoft/fast-dna/issues/1531)) ([73ae6de](https://github.com/Microsoft/fast-dna/commit/73ae6de))
+
+
+
+
+
+## [3.2.4](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-jss-utilities@3.2.3...@microsoft/fast-jss-utilities@3.2.4) (2019-03-11)
+
+
+### Bug Fixes
+
+* adding attribute selector to focus-visible selector ([#1490](https://github.com/Microsoft/fast-dna/issues/1490)) ([812f764](https://github.com/Microsoft/fast-dna/commit/812f764))
+
+
+
+
+
+## [3.2.3](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-jss-utilities@3.2.2...@microsoft/fast-jss-utilities@3.2.3) (2019-02-28)
 
 **Note:** Version bump only for package @microsoft/fast-jss-utilities
 
@@ -11,9 +33,44 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-## [3.0.7](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-jss-utilities@3.0.6...@microsoft/fast-jss-utilities@3.0.7) (2018-12-31)
+## [3.2.2](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-jss-utilities@3.2.1...@microsoft/fast-jss-utilities@3.2.2) (2019-02-21)
+
+
+### Bug Fixes
+
+* focus visible polyfill documentation had misspelled word due to missing space ([#1368](https://github.com/Microsoft/fast-dna/issues/1368)) ([c7bc125](https://github.com/Microsoft/fast-dna/commit/c7bc125))
+
+
+
+
+
+## [3.2.1](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-jss-utilities@3.2.0...@microsoft/fast-jss-utilities@3.2.1) (2019-02-07)
 
 **Note:** Version bump only for package @microsoft/fast-jss-utilities
+
+
+
+
+
+<a name="3.2.0"></a>
+# [3.2.0](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-jss-utilities@3.1.0...@microsoft/fast-jss-utilities@3.2.0) (2019-01-26)
+
+
+### Features
+
+* add focus-visible support ([#1335](https://github.com/Microsoft/fast-dna/issues/1335)) ([1360ef6](https://github.com/Microsoft/fast-dna/commit/1360ef6))
+
+
+
+
+
+<a name="3.1.0"></a>
+# [3.1.0](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-jss-utilities@3.0.8...@microsoft/fast-jss-utilities@3.1.0) (2019-01-22)
+
+
+### Features
+
+* add generic function for deep merging two objects for use with design system defaults ([#1305](https://github.com/Microsoft/fast-dna/issues/1305)) ([25389f0](https://github.com/Microsoft/fast-dna/commit/25389f0))
 
 
 

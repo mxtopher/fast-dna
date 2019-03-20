@@ -2,7 +2,7 @@
   "name": "@microsoft/fast-jest-snapshots-react",
   "description": "A small utility for automating Jest snapshot creation of React components",
   "sideEffects": false,
-  "version": "3.1.1",
+  "version": "3.1.4",
   "author": {
     "name": "Microsoft",
     "url": "https://discord.gg/FcSNfg4"
@@ -29,6 +29,15 @@
     "watch": "npm run build -- -w --preserveWatchOutput"
   },
   "jest": {
+    "collectCoverage": true,
+    "coverageThreshold": {
+      "global": {
+        "statements": 100,
+        "branches": 100,
+        "functions": 100,
+        "lines": 100
+      }
+    },
     "testURL": "http://localhost",
     "transform": {
       "^.+\\.tsx?$": "ts-jest",
@@ -43,13 +52,13 @@
     ]
   },
   "devDependencies": {
-    "@microsoft/fast-tslint-rules": "^3.0.1",
-    "@types/jest": "^23.3.5",
+    "@microsoft/fast-tslint-rules": "^3.0.2",
+    "@types/jest": "^24.0.11",
     "@types/react": "^16.4.18",
-    "jest": "^23.6.0",
+    "jest": "^24.5.0",
     "prettier": "1.14.3",
     "react": "^16.6.0",
-    "ts-jest": "^23.10.4",
+    "ts-jest": "^24.0.0",
     "tslint": "^5.9.1",
     "tslint-config-prettier": "^1.15.0",
     "typescript": "^3.0.1"
@@ -59,7 +68,7 @@
     "react-test-renderer": "^16.3.0"
   },
   "peerDependencies": {
-    "jest": "^22.0.0 || ^23.0.0",
+    "jest": "^22.0.0 || ^23.0.0 || ^24.0.0",
     "react": "^16.6.0"
   }
 }

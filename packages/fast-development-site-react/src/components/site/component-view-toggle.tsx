@@ -1,5 +1,4 @@
 import * as React from "react";
-import { toPx } from "@microsoft/fast-jss-utilities";
 import { Link, withRouter } from "react-router-dom";
 import manageJss, {
     ComponentStyles,
@@ -16,26 +15,32 @@ const styles: ComponentStyles<
     DevSiteDesignSystem
 > = {
     componentViewToggle: {
-        width: toPx(40),
-        height: toPx(38),
+        width: "30px",
+        height: "30px",
         display: "flex",
         position: "relative",
         alignItems: "center",
-        border: `${toPx(1)} solid transparent`,
+        border: "1px solid transparent",
         justifyContent: "center",
-        borderRadius: toPx(2),
-        margin: toPx(2),
+        margin: "0",
+        fill: (config: DevSiteDesignSystem): string => {
+            return config.foreground300 || devSiteDesignSystemDefaults.foreground300;
+        },
+        borderRadius: "2px",
+        boxSizing: "border-box",
         '&[aria-current="page"]': {
             "&::before": {
                 content: "''",
                 position: "absolute",
                 display: "block",
-                width: toPx(32),
-                left: toPx(4),
-                bottom: toPx(-1),
-                borderRadius: `${toPx(2)} ${toPx(2)} 0 0`,
-                height: toPx(2),
-                background: (config: DevSiteDesignSystem): string => config.brandColor,
+                background: (config: DevSiteDesignSystem): string => {
+                    return config.brandColor || devSiteDesignSystemDefaults.brandColor;
+                },
+                width: "24px",
+                left: "2px",
+                bottom: "-1px",
+                borderRadius: "2px 2px 0 0",
+                height: "2px",
             },
         },
         "&:hover": {
@@ -45,7 +50,7 @@ const styles: ComponentStyles<
         "&:focus": {
             outline: "none",
             border: (config: DevSiteDesignSystem): string => {
-                return `${toPx(1)} solid ${config.brandColor ||
+                return `1px solid ${config.brandColor ||
                     devSiteDesignSystemDefaults.brandColor}`;
             },
         },

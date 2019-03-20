@@ -3,37 +3,120 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [3.6.0](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-components-react-msft@3.5.0...@microsoft/fast-components-react-msft@3.6.0) (2019-01-15)
+# [3.13.0](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-components-react-msft@3.12.0...@microsoft/fast-components-react-msft@3.13.0) (2019-03-19)
 
 
 ### Bug Fixes
 
-* normalized text area name and case ([#1294](https://github.com/Microsoft/fast-dna/issues/1294)) ([2ef6027](https://github.com/Microsoft/fast-dna/commit/2ef6027))
-* update button to properly target fill color based on appearance ([#1272](https://github.com/Microsoft/fast-dna/issues/1272)) ([5463135](https://github.com/Microsoft/fast-dna/commit/5463135))
+* update jest to fix build break ([#1531](https://github.com/Microsoft/fast-dna/issues/1531)) ([73ae6de](https://github.com/Microsoft/fast-dna/commit/73ae6de))
 
 
 ### Features
 
-* add action toggle component  ([#1257](https://github.com/Microsoft/fast-dna/issues/1257)) ([d93508e](https://github.com/Microsoft/fast-dna/commit/d93508e))
-* add render props for before and after slots in button ([#1266](https://github.com/Microsoft/fast-dna/issues/1266)) ([e4ecc12](https://github.com/Microsoft/fast-dna/commit/e4ecc12))
-* add text area as a new component ([#1267](https://github.com/Microsoft/fast-dna/issues/1267)) ([0bdd43f](https://github.com/Microsoft/fast-dna/commit/0bdd43f))
+* add auto suggest component ([#1551](https://github.com/Microsoft/fast-dna/issues/1551)) ([660fc41](https://github.com/Microsoft/fast-dna/commit/660fc41))
 
 
 
 
 
-# [3.5.0](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-components-react-msft@3.4.1...@microsoft/fast-components-react-msft@3.5.0) (2018-12-31)
+# [3.12.0](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-components-react-msft@3.11.0...@microsoft/fast-components-react-msft@3.12.0) (2019-03-11)
 
 
 ### Bug Fixes
 
-* remove margins from components and fix text-field placeholder color in disabled state ([#1240](https://github.com/Microsoft/fast-dna/issues/1240)) ([2871d66](https://github.com/Microsoft/fast-dna/commit/2871d66))
-* updated component readme.md files to be more consistent  ([#1232](https://github.com/Microsoft/fast-dna/issues/1232)) ([55f5eec](https://github.com/Microsoft/fast-dna/commit/55f5eec))
+* update call to action to handle disabled state correctly ([#1477](https://github.com/Microsoft/fast-dna/issues/1477)) ([9c6e75f](https://github.com/Microsoft/fast-dna/commit/9c6e75f))
 
 
 ### Features
 
-* add text action as a component ([#1208](https://github.com/Microsoft/fast-dna/issues/1208)) ([d7a7686](https://github.com/Microsoft/fast-dna/commit/d7a7686))
+* add base select component ([#1422](https://github.com/Microsoft/fast-dna/issues/1422)) ([b77a25e](https://github.com/Microsoft/fast-dna/commit/b77a25e))
+
+
+
+
+
+# [3.11.0](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-components-react-msft@3.10.0...@microsoft/fast-components-react-msft@3.11.0) (2019-03-01)
+
+
+### Features
+
+* update carousel functionality and design ([#1411](https://github.com/Microsoft/fast-dna/issues/1411)) ([fce4723](https://github.com/Microsoft/fast-dna/commit/fce4723))
+
+
+
+
+
+# [3.10.0](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-components-react-msft@3.9.0...@microsoft/fast-components-react-msft@3.10.0) (2019-02-28)
+
+
+### Bug Fixes
+
+* remove defaultValue from number field schema and examples ([#1426](https://github.com/Microsoft/fast-dna/issues/1426)) ([06c2d67](https://github.com/Microsoft/fast-dna/commit/06c2d67))
+
+
+### Features
+
+* add pivot msft component ([#1385](https://github.com/Microsoft/fast-dna/issues/1385)) ([e81f01c](https://github.com/Microsoft/fast-dna/commit/e81f01c))
+
+
+
+
+
+# [3.9.0](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-components-react-msft@3.8.0...@microsoft/fast-components-react-msft@3.9.0) (2019-02-21)
+
+
+### Features
+
+* create number field as base and MSFT component ([#1371](https://github.com/Microsoft/fast-dna/issues/1371)) ([d440b5f](https://github.com/Microsoft/fast-dna/commit/d440b5f))
+
+
+
+
+
+# [3.8.0](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-components-react-msft@3.7.0...@microsoft/fast-components-react-msft@3.8.0) (2019-02-07)
+
+
+### Bug Fixes
+
+* context menu styles to match new designs ([#1355](https://github.com/Microsoft/fast-dna/issues/1355)) ([8a3295d](https://github.com/Microsoft/fast-dna/commit/8a3295d))
+* pass action toggle glyph to beforeContent to ensure that underline only covers the text ([#1348](https://github.com/Microsoft/fast-dna/issues/1348)) ([5fef862](https://github.com/Microsoft/fast-dna/commit/5fef862))
+* pass action trigger glyph to beforeContent to ensure underline on hover only impacts text ([#1349](https://github.com/Microsoft/fast-dna/issues/1349)) ([ead4468](https://github.com/Microsoft/fast-dna/commit/ead4468))
+
+
+### Features
+
+* add badge as an MSFT component ([#1278](https://github.com/Microsoft/fast-dna/issues/1278)) ([79ce26c](https://github.com/Microsoft/fast-dna/commit/79ce26c))
+* add carousel as a MSFT component ([#1338](https://github.com/Microsoft/fast-dna/issues/1338)) ([b23e2c1](https://github.com/Microsoft/fast-dna/commit/b23e2c1))
+
+
+
+
+
+<a name="3.7.0"></a>
+# [3.7.0](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-components-react-msft@3.6.2...@microsoft/fast-components-react-msft@3.7.0) (2019-01-26)
+
+
+### Features
+
+* add focus-visible support ([#1335](https://github.com/Microsoft/fast-dna/issues/1335)) ([1360ef6](https://github.com/Microsoft/fast-dna/commit/1360ef6))
+
+
+
+
+
+<a name="3.6.2"></a>
+## [3.6.2](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-components-react-msft@3.6.1...@microsoft/fast-components-react-msft@3.6.2) (2019-01-22)
+
+**Note:** Version bump only for package @microsoft/fast-components-react-msft
+
+
+
+
+
+<a name="3.6.1"></a>
+## [3.6.1](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-components-react-msft@3.6.0...@microsoft/fast-components-react-msft@3.6.1) (2019-01-22)
+
+**Note:** Version bump only for package @microsoft/fast-components-react-msft
 
 
 

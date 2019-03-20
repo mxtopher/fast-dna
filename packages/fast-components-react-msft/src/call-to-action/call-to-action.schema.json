@@ -18,11 +18,15 @@
                 "justified",
                 "lightweight"
             ]
+        },
+        "disabled": {
+            "title": "Disabled",
+            "type": "boolean"
         }
     },
     "reactProperties": {
         "children": {
-            "title": "Building blocks",
+            "title": "Children",
             "type": "children",
             "defaults": [
                 "text"

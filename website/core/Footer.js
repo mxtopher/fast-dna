@@ -34,9 +34,12 @@ class Footer extends React.Component {
             )}
           </a> */}
           <div>
-            <h5>Documentation</h5>
-            <a href={this.docUrl('contributing/install', this.props.language)}>
+            <h5>Guides</h5>
+            <a href="https://microsoft.github.io/fast-dna/docs/en/contributing/install">
               Install
+            </a>
+            <a href="https://microsoft.github.io/fast-dna/docs/en/packages/fast-animation/">
+              Packages
             </a>
           </div>
           <div>
@@ -85,8 +88,6 @@ class Footer extends React.Component {
             </a>
           </div>
         </section>
-
-
       }
         <section className="copyright">{this.props.config.copyright}</section>
       </footer>

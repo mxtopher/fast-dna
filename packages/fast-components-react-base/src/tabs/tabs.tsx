@@ -17,20 +17,6 @@ import Tab, { TabManagedClasses } from "./tab";
 import TabItem from "./tab-item";
 import TabPanel, { TabPanelManagedClasses } from "./tab-panel";
 
-const tabManagedClasses: TabManagedClasses = {
-    managedClasses: {
-        tab: "tab-class",
-        tab__active: "tab__active-class",
-    },
-};
-
-const tabPanelManagedClasses: TabPanelManagedClasses = {
-    managedClasses: {
-        tabPanel: "tab_panel-class",
-        tabPanel__hidden: "tab_panel__hidden-class",
-    },
-};
-
 export enum TabLocation {
     first,
     last,
@@ -141,9 +127,12 @@ class Tabs extends Foundation<TabsHandledProps, TabsUnhandledProps, TabsState> {
             const items: React.ReactNode[] = React.Children.toArray(this.tabItems());
             const currentItemIndex: number = items.findIndex(this.getCurrentIndexById);
 
-            (Array.from(this.tabListRef.current.children)[
-                currentItemIndex
-            ] as HTMLButtonElement).focus();
+            // Do nothing if current item index is not found
+            if (currentItemIndex !== -1) {
+                (Array.from(this.tabListRef.current.children)[
+                    currentItemIndex
+                ] as HTMLButtonElement).focus();
+            }
         }
     }
 
@@ -169,6 +158,30 @@ class Tabs extends Foundation<TabsHandledProps, TabsUnhandledProps, TabsState> {
     }
 
     /**
+     * Create tab class names
+     */
+    protected generateTabClassNames(): TabManagedClasses {
+        return {
+            managedClasses: {
+                tab: get(this.props, "managedClasses.tab"),
+                tab__active: get(this.props, "managedClasses.tab__active"),
+            },
+        };
+    }
+
+    /**
+     * Create tab panel class names
+     */
+    protected generateTabPanelClassNames(): TabPanelManagedClasses {
+        return {
+            managedClasses: {
+                tabPanel: get(this.props, "managedClasses.tabPanel"),
+                tabPanel__hidden: get(this.props, "managedClasses.tabPanel__hidden"),
+            },
+        };
+    }
+
+    /**
      * Renders the tab elements
      */
     private renderTabElements(): JSX.Element[] {
@@ -189,7 +202,7 @@ class Tabs extends Foundation<TabsHandledProps, TabsUnhandledProps, TabsState> {
                 return (
                     <TabItem key={tabItem.id} id={tabItem.id} slot={TabsSlot.tabItem}>
                         <Tab
-                            {...tabManagedClasses}
+                            {...this.generateTabClassNames()}
                             slot={TabsSlot.tab}
                             key={tabItem.id}
                             aria-controls={tabItem.id}
@@ -201,7 +214,7 @@ class Tabs extends Foundation<TabsHandledProps, TabsUnhandledProps, TabsState> {
                             {tabItem.tab(this.generateTabContentClassNames())}
                         </Tab>
                         <TabPanel
-                            {...tabPanelManagedClasses}
+                            {...this.generateTabPanelClassNames()}
                             slot={TabsSlot.tabPanel}
                             key={tabItem.id}
                             id={tabItem.id}

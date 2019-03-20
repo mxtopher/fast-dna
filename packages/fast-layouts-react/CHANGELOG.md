@@ -3,7 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [3.1.10](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-layouts-react@3.1.9...@microsoft/fast-layouts-react@3.1.10) (2019-01-15)
+## [3.2.1](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-layouts-react@3.2.0...@microsoft/fast-layouts-react@3.2.1) (2019-03-19)
+
+
+### Bug Fixes
+
+* update jest to fix build break ([#1531](https://github.com/Microsoft/fast-dna/issues/1531)) ([73ae6de](https://github.com/Microsoft/fast-dna/commit/73ae6de))
+
+
+
+
+
+# [3.2.0](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-layouts-react@3.1.15...@microsoft/fast-layouts-react@3.2.0) (2019-03-11)
+
+
+### Features
+
+* add prop to support setting initial width on Pane ([#1486](https://github.com/Microsoft/fast-dna/issues/1486)) ([bd32ec0](https://github.com/Microsoft/fast-dna/commit/bd32ec0))
+
+
+
+
+
+## [3.1.15](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-layouts-react@3.1.14...@microsoft/fast-layouts-react@3.1.15) (2019-02-28)
 
 **Note:** Version bump only for package @microsoft/fast-layouts-react
 
@@ -11,7 +33,33 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-## [3.1.9](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-layouts-react@3.1.8...@microsoft/fast-layouts-react@3.1.9) (2018-12-31)
+## [3.1.14](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-layouts-react@3.1.13...@microsoft/fast-layouts-react@3.1.14) (2019-02-21)
+
+**Note:** Version bump only for package @microsoft/fast-layouts-react
+
+
+
+
+
+## [3.1.13](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-layouts-react@3.1.12...@microsoft/fast-layouts-react@3.1.13) (2019-02-07)
+
+**Note:** Version bump only for package @microsoft/fast-layouts-react
+
+
+
+
+
+<a name="3.1.12"></a>
+## [3.1.12](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-layouts-react@3.1.11...@microsoft/fast-layouts-react@3.1.12) (2019-01-26)
+
+**Note:** Version bump only for package @microsoft/fast-layouts-react
+
+
+
+
+
+<a name="3.1.11"></a>
+## [3.1.11](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-layouts-react@3.1.10...@microsoft/fast-layouts-react@3.1.11) (2019-01-22)
 
 **Note:** Version bump only for package @microsoft/fast-layouts-react
 

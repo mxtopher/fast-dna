@@ -1,5 +1,4 @@
 import * as React from "react";
-import FormItemCommon from "./form-item";
 import styles from "./form-category.style";
 import { FormCategoryClassNameContract } from "../class-name-contracts/";
 import manageJss, { ManagedJSSProps } from "@microsoft/fast-jss-manager-react";
@@ -9,11 +8,6 @@ import { ManagedClasses } from "@microsoft/fast-components-class-name-contracts-
  * Select state interface
  */
 export interface FormCategoryProps {
-    /**
-     * Passes the category item
-     */
-    categoryItem: JSX.Element[];
-
     /**
      * Passes the category title
      */
@@ -43,6 +37,8 @@ class FormCategory extends React.Component<
     FormCategoryProps & ManagedClasses<FormCategoryClassNameContract>,
     FormCategoryState
 > {
+    public static displayName: string = "FormCategory";
+
     constructor(
         props: FormCategoryProps & ManagedClasses<FormCategoryClassNameContract>
     ) {
@@ -55,18 +51,9 @@ class FormCategory extends React.Component<
     /**
      * Renders the component
      */
-    public render(): JSX.Element {
-        // Exit if the array is only one item long and that item is null or undefined
-        if (
-            (this.props.categoryItem.length < 1 && this.props.categoryItem[0] === null) ||
-            (this.props.categoryItem.length < 1 &&
-                this.props.categoryItem[0] === undefined)
-        ) {
-            return;
-        }
-
+    public render(): React.ReactNode {
         return (
-            <div key={this.props.id}>
+            <div>
                 {this.props.expandable
                     ? this.renderHeaderButton()
                     : this.renderHeaderTitle()}
@@ -74,7 +61,7 @@ class FormCategory extends React.Component<
                     className={this.getClassNames()}
                     {...this.generateContainerAttributes()}
                 >
-                    {this.props.categoryItem}
+                    {this.props.children}
                 </div>
             </div>
         );

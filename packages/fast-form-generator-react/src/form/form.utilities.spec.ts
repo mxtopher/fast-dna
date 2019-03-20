@@ -1,6 +1,4 @@
 import "jest";
-import { get } from "lodash-es";
-import { ChildOptionItem } from "@microsoft/fast-data-utilities-react";
 import {
     BreadcrumbItem,
     getBreadcrumbs,
@@ -9,7 +7,7 @@ import {
     HandleBreadcrumbClick,
     NavigationItem,
 } from "./form.utilities";
-import { BreadcrumbItemEventHandler } from "./form.props";
+import { BreadcrumbItemEventHandler, FormChildOptionItem } from "./form.props";
 import Children from "../../app/configs/children";
 import General from "../../app/configs/general";
 import Textarea from "../../app/configs/textarea";
@@ -29,7 +27,7 @@ import { reactChildrenStringSchema } from "./form-item.children.text";
  * Gets the navigation
  */
 describe("getNavigation", () => {
-    const childOptions: ChildOptionItem[] = [
+    const childOptions: FormChildOptionItem[] = [
         {
             name: childrenSchema.id,
             component: Children,
@@ -159,11 +157,17 @@ describe("getNavigation", () => {
             anyOfSchema,
             childOptions
         );
+        const navigationNonObject: NavigationItem[] = getNavigation(
+            "numberOrString",
+            { numberOrString: 54 },
+            oneOfSchema,
+            childOptions
+        );
 
         expect(navigationRoot.length).toBe(1);
-        expect(navigation[0].dataLocation).toBe("");
-        expect(navigation[0].schema).toEqual(anyOfSchema);
-        expect(navigation[0].data).toEqual({ nestedAnyOf: { string: "foo" } });
+        expect(navigationRoot[0].dataLocation).toBe("");
+        expect(navigationRoot[0].schema).toEqual(anyOfSchema);
+        expect(navigationRoot[0].data).toEqual({ nestedAnyOf: { string: "foo" } });
 
         expect(navigation.length).toBe(2);
         expect(navigation[0].dataLocation).toBe("");
@@ -172,6 +176,16 @@ describe("getNavigation", () => {
         expect(navigation[1].dataLocation).toBe("nestedAnyOf");
         expect(navigation[1].schema).toEqual(anyOfSchema.anyOf[2].properties.nestedAnyOf);
         expect(navigation[1].data).toEqual({ string: "foo" });
+
+        expect(navigationNonObject.length).toBe(2);
+        expect(navigationNonObject[0].dataLocation).toBe("");
+        expect(navigationNonObject[0].schema).toEqual(oneOfSchema);
+        expect(navigationNonObject[0].data).toEqual({ numberOrString: 54 });
+        expect(navigationNonObject[1].dataLocation).toBe("numberOrString");
+        expect(navigationNonObject[1].schema).toEqual(
+            oneOfSchema.oneOf[2].properties.numberOrString
+        );
+        expect(navigationNonObject[1].data).toEqual(54);
     });
     test("should return navigation items for children", () => {
         const navigation: NavigationItem[] = getNavigation(
@@ -456,6 +470,129 @@ describe("getNavigation", () => {
             string: "Foo",
         });
     });
+    test("should return navigation items for oneOf/anyOf nested objects", () => {
+        const navigation: NavigationItem[] = getNavigation(
+            "numberOrString.object",
+            {
+                numberOrString: {
+                    object: {
+                        number: 47,
+                    },
+                },
+            },
+            oneOfSchema,
+            childOptions
+        );
+
+        expect(navigation.length).toBe(3);
+        expect(navigation[0].dataLocation).toBe("");
+        expect(navigation[0].schema).toEqual(oneOfSchema);
+        expect(navigation[0].data).toEqual({
+            numberOrString: {
+                object: {
+                    number: 47,
+                },
+            },
+        });
+        expect(navigation[1].dataLocation).toBe("numberOrString");
+        expect(navigation[1].schema).toEqual(
+            oneOfSchema.oneOf[2].properties.numberOrString
+        );
+        expect(navigation[1].data).toEqual({
+            object: {
+                number: 47,
+            },
+        });
+        expect(navigation[2].dataLocation).toBe("numberOrString.object");
+        expect(navigation[2].schema).toEqual(
+            oneOfSchema.oneOf[2].properties.numberOrString.oneOf[2].properties.object
+        );
+        expect(navigation[2].data).toEqual({
+            number: 47,
+        });
+    });
+    test("should return navigation items for oneOf/anyOf nested arrays", () => {
+        const navigation: NavigationItem[] = getNavigation(
+            "numberOrString[0]",
+            {
+                numberOrString: ["foo", "bar"],
+            },
+            oneOfSchema,
+            childOptions
+        );
+
+        expect(navigation.length).toBe(2);
+        expect(navigation[0].dataLocation).toBe("");
+        expect(navigation[0].schema).toEqual(oneOfSchema);
+        expect(navigation[0].data).toEqual({
+            numberOrString: ["foo", "bar"],
+        });
+        expect(navigation[1].dataLocation).toBe("numberOrString[0]");
+        expect(navigation[1].schema).toEqual(
+            oneOfSchema.oneOf[2].properties.numberOrString.oneOf[3].items
+        );
+        expect(navigation[1].data).toEqual("foo");
+    });
+    test("should return navigation items for oneOf/anyOf nested objects inside children", () => {
+        const navigation: NavigationItem[] = getNavigation(
+            "children.props.numberOrString.object",
+            {
+                children: {
+                    id: oneOfSchema.id,
+                    props: {
+                        numberOrString: {
+                            object: {
+                                number: 47,
+                            },
+                        },
+                    },
+                },
+            },
+            childrenSchema,
+            childOptions
+        );
+
+        expect(navigation.length).toBe(4);
+        expect(navigation[0].dataLocation).toBe("");
+        expect(navigation[0].schema).toEqual(childrenSchema);
+        expect(navigation[0].data).toEqual({
+            children: {
+                id: oneOfSchema.id,
+                props: {
+                    numberOrString: {
+                        object: {
+                            number: 47,
+                        },
+                    },
+                },
+            },
+        });
+        expect(navigation[1].dataLocation).toBe("children.props");
+        expect(navigation[1].schema).toEqual(oneOfSchema);
+        expect(navigation[1].data).toEqual({
+            numberOrString: {
+                object: {
+                    number: 47,
+                },
+            },
+        });
+        expect(navigation[2].dataLocation).toBe("children.props.numberOrString");
+        expect(navigation[2].schema).toEqual(
+            oneOfSchema.oneOf[2].properties.numberOrString
+        );
+        expect(navigation[2].data).toEqual({
+            object: {
+                number: 47,
+            },
+        });
+        expect(navigation[3].dataLocation).toBe("children.props.numberOrString.object");
+        expect(navigation[3].schema).toEqual(
+            oneOfSchema.oneOf[2].properties.numberOrString.oneOf[2].properties.object
+        );
+        expect(navigation[3].data).toEqual({
+            number: 47,
+        });
+    });
 });
 
 /**
@@ -471,7 +608,7 @@ describe("getBreadcrumbs", () => {
             e.preventDefault();
         };
     };
-    const childOptions: ChildOptionItem[] = [
+    const childOptions: FormChildOptionItem[] = [
         {
             name: childrenSchema.id,
             component: Children,

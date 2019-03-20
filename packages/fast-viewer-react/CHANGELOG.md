@@ -3,7 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [4.0.10](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-viewer-react@4.0.9...@microsoft/fast-viewer-react@4.0.10) (2019-01-15)
+## [4.1.1](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-viewer-react@4.1.0...@microsoft/fast-viewer-react@4.1.1) (2019-03-19)
+
+
+### Bug Fixes
+
+* update jest to fix build break ([#1531](https://github.com/Microsoft/fast-dna/issues/1531)) ([73ae6de](https://github.com/Microsoft/fast-dna/commit/73ae6de))
+
+
+
+
+
+# [4.1.0](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-viewer-react@4.0.16...@microsoft/fast-viewer-react@4.1.0) (2019-03-11)
+
+
+### Features
+
+* add viewer to tooling ([#1511](https://github.com/Microsoft/fast-dna/issues/1511)) ([721552d](https://github.com/Microsoft/fast-dna/commit/721552d))
+
+
+
+
+
+## [4.0.16](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-viewer-react@4.0.15...@microsoft/fast-viewer-react@4.0.16) (2019-03-01)
 
 **Note:** Version bump only for package @microsoft/fast-viewer-react
 
@@ -11,7 +33,44 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-## [4.0.9](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-viewer-react@4.0.8...@microsoft/fast-viewer-react@4.0.9) (2018-12-31)
+## [4.0.15](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-viewer-react@4.0.14...@microsoft/fast-viewer-react@4.0.15) (2019-02-28)
+
+**Note:** Version bump only for package @microsoft/fast-viewer-react
+
+
+
+
+
+## [4.0.14](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-viewer-react@4.0.13...@microsoft/fast-viewer-react@4.0.14) (2019-02-21)
+
+**Note:** Version bump only for package @microsoft/fast-viewer-react
+
+
+
+
+
+## [4.0.13](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-viewer-react@4.0.12...@microsoft/fast-viewer-react@4.0.13) (2019-02-07)
+
+
+### Bug Fixes
+
+* remove duplicate export of viewer content base component ([#1358](https://github.com/Microsoft/fast-dna/issues/1358)) ([1cd789a](https://github.com/Microsoft/fast-dna/commit/1cd789a))
+
+
+
+
+
+<a name="4.0.12"></a>
+## [4.0.12](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-viewer-react@4.0.11...@microsoft/fast-viewer-react@4.0.12) (2019-01-26)
+
+**Note:** Version bump only for package @microsoft/fast-viewer-react
+
+
+
+
+
+<a name="4.0.11"></a>
+## [4.0.11](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-viewer-react@4.0.10...@microsoft/fast-viewer-react@4.0.11) (2019-01-22)
 
 **Note:** Version bump only for package @microsoft/fast-viewer-react
 

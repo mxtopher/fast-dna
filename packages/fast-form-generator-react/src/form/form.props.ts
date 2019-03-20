@@ -1,8 +1,9 @@
-import { updateActiveSection } from "./form-section.props";
 import { NavigationItem } from "./form.utilities";
-import { ChildOptionItem } from "@microsoft/fast-data-utilities-react";
+import { FormPlugin, FormPluginProps } from "../";
 
 export type PropsOnChange = (data: any) => void;
+
+export type SchemaOnChange = (schema: any) => void;
 
 export type DataOnChange = (
     location: string,
@@ -12,11 +13,34 @@ export type DataOnChange = (
     isChildren?: boolean
 ) => void;
 
-export type LocationOnChange = (schemaLocation: string, dataLocation: string) => void;
+export type LocationOnChange = (dataLocation: string) => void;
 
 export type BreadcrumbItemEventHandler = (e: React.MouseEvent<HTMLAnchorElement>) => void;
 
 export type FormTag = "form" | "div";
+
+export interface FormChildOptionItem {
+    /**
+     * The name of the component
+     */
+    name?: string;
+
+    /**
+     * The React component
+     */
+    component: React.ComponentType;
+
+    /**
+     * The JSON schema for the component
+     */
+    schema: any;
+
+    /**
+     * The plugins for data assigned to this component
+     * TODO: enable this for #1445
+     */
+    // plugins?: Array<FormPlugin<FormPluginProps>>;
+}
 
 /**
  * The schema form props
@@ -43,9 +67,19 @@ export interface FormProps {
     onChange: PropsOnChange;
 
     /**
+     * The plugins to update the schema
+     */
+    plugins?: Array<FormPlugin<FormPluginProps>>;
+
+    /**
+     * The change event for updating the schema
+     */
+    onSchemaChange?: SchemaOnChange;
+
+    /**
      * The optional components to be added as children
      */
-    childOptions?: ChildOptionItem[];
+    childOptions?: FormChildOptionItem[];
 
     /**
      * The custom passed location of a subsection to initially activate
@@ -83,11 +117,6 @@ export interface FormState {
     schema: any;
 
     /**
-     * Current active schema location
-     */
-    activeSchemaLocation: string;
-
-    /**
      * Current active data location
      */
     activeDataLocation: string;
@@ -106,7 +135,7 @@ export interface FormState {
      * The location, which can be the root or a sub location,
      * which corresponds to a different section
      */
-    location?: any;
+    location?: FormLocation;
 }
 
 export interface FormLocation {
@@ -114,11 +143,6 @@ export interface FormLocation {
      * The data location
      */
     dataLocation: string;
-
-    /**
-     * The schema location
-     */
-    schemaLocation: string;
 
     /**
      * The location change callback

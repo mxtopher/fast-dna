@@ -12,7 +12,10 @@ module.exports = (env, args) => {
 
     return {
         devtool: isProduction ? "none" : "inline-source-map",
-        entry: path.resolve(appDir, "index.tsx"),
+        entry: {
+            app: path.resolve(appDir, "index.tsx"),
+            focusVisible: path.resolve(__dirname, "node_modules/focus-visible/dist/focus-visible.min.js")
+        },
         output: {
             path: outDir,
             publicPath: "/",
@@ -59,7 +62,7 @@ module.exports = (env, args) => {
         },
         plugins: [
             new HtmlWebpackPlugin({
-                title: "FAST documentation",
+                title: "FAST Component explorer",
                 contentBase: outDir,
             }),
             new WebpackShellPlugin({
@@ -76,7 +79,6 @@ module.exports = (env, args) => {
         resolve: {
             extensions: [".js", ".tsx", ".ts", ".json"],
             alias: {
-                fbjs: path.resolve('./node_modules/fbjs'),
                 'lodash-es': path.resolve('./node_modules/lodash-es'),
                 react: path.resolve('./node_modules/react'),
                 'react-dom': path.resolve('./node_modules/react-dom'),

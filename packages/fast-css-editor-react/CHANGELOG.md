@@ -3,7 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [4.1.4](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-css-editor-react@4.1.3...@microsoft/fast-css-editor-react@4.1.4) (2019-01-15)
+# [4.4.0](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-css-editor-react@4.3.2...@microsoft/fast-css-editor-react@4.4.0) (2019-03-19)
+
+
+### Bug Fixes
+
+* update jest to fix build break ([#1531](https://github.com/Microsoft/fast-dna/issues/1531)) ([73ae6de](https://github.com/Microsoft/fast-dna/commit/73ae6de))
+
+
+### Features
+
+* add css editor to the tooling package ([#1532](https://github.com/Microsoft/fast-dna/issues/1532)) ([a579bc9](https://github.com/Microsoft/fast-dna/commit/a579bc9))
+
+
+
+
+
+## [4.3.2](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-css-editor-react@4.3.1...@microsoft/fast-css-editor-react@4.3.2) (2019-03-11)
 
 **Note:** Version bump only for package @microsoft/fast-css-editor-react
 
@@ -11,7 +27,67 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-## [4.1.3](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-css-editor-react@4.1.2...@microsoft/fast-css-editor-react@4.1.3) (2018-12-31)
+## [4.3.1](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-css-editor-react@4.3.0...@microsoft/fast-css-editor-react@4.3.1) (2019-03-01)
+
+**Note:** Version bump only for package @microsoft/fast-css-editor-react
+
+
+
+
+
+# [4.3.0](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-css-editor-react@4.2.1...@microsoft/fast-css-editor-react@4.3.0) (2019-02-28)
+
+
+### Features
+
+* add "relative" and "fixed" to the position options ([#1434](https://github.com/Microsoft/fast-dna/issues/1434)) ([0b94bbe](https://github.com/Microsoft/fast-dna/commit/0b94bbe))
+
+
+
+
+
+## [4.2.1](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-css-editor-react@4.2.0...@microsoft/fast-css-editor-react@4.2.1) (2019-02-21)
+
+
+### Bug Fixes
+
+* normalize colors and backgrounds across tooling packages ([#1421](https://github.com/Microsoft/fast-dna/issues/1421)) ([2ba5dec](https://github.com/Microsoft/fast-dna/commit/2ba5dec))
+
+
+
+
+
+# [4.2.0](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-css-editor-react@4.1.7...@microsoft/fast-css-editor-react@4.2.0) (2019-02-07)
+
+
+### Features
+
+* update styling to match the FAST form generator ([#1351](https://github.com/Microsoft/fast-dna/issues/1351)) ([fe83dbd](https://github.com/Microsoft/fast-dna/commit/fe83dbd))
+
+
+
+
+
+<a name="4.1.7"></a>
+## [4.1.7](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-css-editor-react@4.1.6...@microsoft/fast-css-editor-react@4.1.7) (2019-01-26)
+
+**Note:** Version bump only for package @microsoft/fast-css-editor-react
+
+
+
+
+
+<a name="4.1.6"></a>
+## [4.1.6](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-css-editor-react@4.1.5...@microsoft/fast-css-editor-react@4.1.6) (2019-01-22)
+
+**Note:** Version bump only for package @microsoft/fast-css-editor-react
+
+
+
+
+
+<a name="4.1.5"></a>
+## [4.1.5](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-css-editor-react@4.1.4...@microsoft/fast-css-editor-react@4.1.5) (2019-01-22)
 
 **Note:** Version bump only for package @microsoft/fast-css-editor-react
 

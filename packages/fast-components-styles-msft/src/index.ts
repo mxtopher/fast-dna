@@ -9,6 +9,17 @@ import ActionTriggerStyles from "./action-trigger";
 export { ActionTriggerStyles };
 export * from "./action-trigger";
 
+import AutoSuggestStyles from "./auto-suggest";
+export { AutoSuggestStyles };
+export * from "./auto-suggest";
+
+import AutoSuggestOptionStyles from "./auto-suggest-option";
+export { AutoSuggestOptionStyles };
+export * from "./auto-suggest-option";
+
+import BadgeStyles from "./badge";
+export { BadgeStyles };
+
 import BreadcrumbStyles from "./breadcrumb";
 export { BreadcrumbStyles };
 
@@ -21,6 +32,9 @@ export * from "./call-to-action";
 
 import CaptionStyles from "./caption";
 export { CaptionStyles };
+
+import CarouselStyles from "./carousel";
+export { CarouselStyles };
 
 import CardStyles from "./card";
 export { CardStyles };
@@ -84,10 +98,22 @@ import MetatextStyles from "./metatext";
 export { MetatextStyles };
 
 /**
+ * Export metatext styles
+ */
+import NumberFieldStyles from "./number-field";
+export { NumberFieldStyles };
+
+/**
  * Export paragraph styles
  */
 import ParagraphStyles from "./paragraph";
 export { ParagraphStyles };
+
+/**
+ * Export pivot styles
+ */
+import PivotStyles from "./pivot";
+export { PivotStyles };
 
 /**
  * Export progress styles
@@ -100,6 +126,19 @@ export { ProgressStyles };
  */
 import RadioStyles from "./radio";
 export { RadioStyles };
+
+/**
+ * Export select styles
+ */
+import SelectStyles from "./select";
+export { SelectStyles };
+export * from "./select";
+
+/**
+ * Export select option styles
+ */
+import SelectOptionStyles from "./select-option";
+export { SelectOptionStyles };
 
 /**
  * Export subheading styles

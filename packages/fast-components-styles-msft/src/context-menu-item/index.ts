@@ -12,33 +12,36 @@ import {
     ensureForegroundNormal,
     hoverContrast,
 } from "../utilities/colors";
-import { contrast, focusVisible, scaleContrast } from "@microsoft/fast-jss-utilities";
+import { applyFocusVisible } from "@microsoft/fast-jss-utilities";
 import { applyTypeRampConfig } from "../utilities/typography";
 import typographyPattern from "../patterns/typography";
+import { toPx } from "@microsoft/fast-jss-utilities";
 
 const styles: ComponentStyles<ContextMenuItemClassNameContract, DesignSystem> = {
     contextMenuItem: {
         listStyleType: "none",
-        height: density(40),
+        height: density(32),
         display: "grid",
-        gridTemplateColumns: "38px auto 38px",
+        gridTemplateColumns: "32px auto 32px",
         gridTemplateRows: "auto",
         alignItems: "center",
         padding: "0",
+        margin: "0 4px",
         ...typographyPattern.rest,
         whiteSpace: "nowrap",
         overflow: "hidden",
         cursor: "default",
         ...applyTypeRampConfig("t7"),
         background: backgroundColor,
+        borderRadius: (config: DesignSystem): string => {
+            const designSystem: DesignSystem = withDesignSystemDefaults(config);
+
+            return toPx(designSystem.cornerRadius);
+        },
         border: "2px solid transparent",
-        "&:focus": {
-            outline: "none",
-        },
-        [`&${focusVisible()}`]: {
-            outline: "none",
+        ...applyFocusVisible({
             borderColor: ensureForegroundNormal,
-        },
+        }),
         "&:hover": {
             background: (config: DesignSystem): string => {
                 const designSystem: DesignSystem = withDesignSystemDefaults(config);
@@ -55,9 +58,12 @@ const styles: ComponentStyles<ContextMenuItemClassNameContract, DesignSystem> = 
     contextMenuItem__disabled: {
         cursor: "not-allowed",
         ...typographyPattern.disabled,
-        [`&:hover, &${focusVisible()}`]: {
+        "&:hover": {
             background: backgroundColor,
         },
+        ...applyFocusVisible({
+            background: backgroundColor,
+        }),
     },
 };
 

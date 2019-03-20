@@ -2,7 +2,7 @@
   "name": "@microsoft/fast-viewer-react",
   "description": "An implementation of a React iframe that is self-contained.",
   "sideEffects": false,
-  "version": "4.0.10",
+  "version": "4.1.1",
   "author": {
     "name": "Microsoft",
     "url": "https://discord.gg/FcSNfg4"
@@ -23,7 +23,7 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc -p ./tsconfig.json",
-    "build:app": "webpack --progress",
+    "build:app": "webpack --progress --mode=production",
     "clean:dist": "node ../../build/clean.js dist",
     "prepare": "npm run clean:dist && npm run build",
     "prettier": "prettier --config ../../.prettierrc --write \"**/*.{ts,tsx}\"",
@@ -61,7 +61,8 @@
       "js",
       "jsx",
       "ts",
-      "tsx"
+      "tsx",
+      "json"
     ],
     "moduleDirectories": [
       "node_modules",
@@ -81,8 +82,8 @@
     "@babel/core": "^7.0.0",
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-react": "^7.0.0",
-    "@microsoft/fast-tslint-rules": "^3.0.1",
-    "@types/jest": "^23.3.5",
+    "@microsoft/fast-tslint-rules": "^3.0.2",
+    "@types/jest": "^24.0.11",
     "@types/lodash-es": "^4.17.0",
     "@types/node": "^9.6.7",
     "@types/react": "^16.3.6",
@@ -90,11 +91,11 @@
     "@types/react-router": "^4.0.21",
     "@types/react-router-dom": "^4.2.3",
     "babel-core": "^7.0.0-bridge.0",
-    "babel-jest": "^23.6.0",
+    "babel-jest": "^24.5.0",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "html-webpack-plugin": "^3.0.0",
-    "jest": "^23.6.0",
+    "jest": "^24.5.0",
     "jss": "^9.8.1",
     "jss-preset-default": "^4.3.0",
     "lodash-es": "^4.0.0",
@@ -106,7 +107,7 @@
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
     "react-test-renderer": "^16.2.0",
-    "ts-jest": "^23.10.4",
+    "ts-jest": "^24.0.0",
     "ts-loader": "^4.0.1",
     "ts-node": "^4.1.0",
     "tslint": "^5.9.1",
@@ -116,16 +117,16 @@
     "typescript": "^3.0.1",
     "webpack": "^4.0.1",
     "webpack-cli": "^3.1.1",
-    "webpack-dev-server": "^3.1.0"
+    "webpack-dev-server": "^3.1.14"
   },
   "dependencies": {
-    "@microsoft/fast-application-utilities": "^3.0.4",
-    "@microsoft/fast-components-class-name-contracts-base": "^3.5.0",
-    "@microsoft/fast-components-foundation-react": "^2.0.0",
-    "@microsoft/fast-data-utilities-react": "^1.0.0",
-    "@microsoft/fast-jss-manager": "^3.0.8",
-    "@microsoft/fast-jss-manager-react": "^3.1.9",
-    "@microsoft/fast-jss-utilities": "^3.0.8",
+    "@microsoft/fast-application-utilities": "^3.1.3",
+    "@microsoft/fast-components-class-name-contracts-base": "^3.10.0",
+    "@microsoft/fast-components-foundation-react": "^2.1.4",
+    "@microsoft/fast-data-utilities-react": "^1.5.1",
+    "@microsoft/fast-jss-manager": "^3.0.13",
+    "@microsoft/fast-jss-manager-react": "^3.1.14",
+    "@microsoft/fast-jss-utilities": "^3.2.5",
     "exenv-es6": "^1.0.0",
     "utility-types": "^2.1.0"
   }

@@ -3,6 +3,73 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.10.0](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-components-class-name-contracts-base@3.9.0...@microsoft/fast-components-class-name-contracts-base@3.10.0) (2019-03-19)
+
+
+### Features
+
+* add auto suggest component ([#1551](https://github.com/Microsoft/fast-dna/issues/1551)) ([660fc41](https://github.com/Microsoft/fast-dna/commit/660fc41))
+
+
+
+
+
+# [3.9.0](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-components-class-name-contracts-base@3.8.0...@microsoft/fast-components-class-name-contracts-base@3.9.0) (2019-03-11)
+
+
+### Features
+
+* add base select component ([#1422](https://github.com/Microsoft/fast-dna/issues/1422)) ([b77a25e](https://github.com/Microsoft/fast-dna/commit/b77a25e))
+
+
+
+
+
+# [3.8.0](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-components-class-name-contracts-base@3.7.0...@microsoft/fast-components-class-name-contracts-base@3.8.0) (2019-02-28)
+
+
+### Bug Fixes
+
+* add additional wrapper to dialog to prevent subpixel aliasing due to css transforms ([#1431](https://github.com/Microsoft/fast-dna/issues/1431)) ([1fad8fe](https://github.com/Microsoft/fast-dna/commit/1fad8fe))
+
+
+### Features
+
+* add class name for horizontal overflow items ([#1448](https://github.com/Microsoft/fast-dna/issues/1448)) ([ffb6d87](https://github.com/Microsoft/fast-dna/commit/ffb6d87))
+
+
+
+
+
+# [3.7.0](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-components-class-name-contracts-base@3.6.0...@microsoft/fast-components-class-name-contracts-base@3.7.0) (2019-02-21)
+
+
+### Features
+
+* add additional functionality to listbox base ([#1381](https://github.com/Microsoft/fast-dna/issues/1381)) ([48d9c31](https://github.com/Microsoft/fast-dna/commit/48d9c31))
+* create number field as base and MSFT component ([#1371](https://github.com/Microsoft/fast-dna/issues/1371)) ([d440b5f](https://github.com/Microsoft/fast-dna/commit/d440b5f))
+
+
+
+
+
+# [3.6.0](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-components-class-name-contracts-base@3.5.0...@microsoft/fast-components-class-name-contracts-base@3.6.0) (2019-02-07)
+
+
+### Bug Fixes
+
+* child component class name assignment in tabs ([#1345](https://github.com/Microsoft/fast-dna/issues/1345)) ([769aa2b](https://github.com/Microsoft/fast-dna/commit/769aa2b))
+
+
+### Features
+
+* add badge as an MSFT component ([#1278](https://github.com/Microsoft/fast-dna/issues/1278)) ([79ce26c](https://github.com/Microsoft/fast-dna/commit/79ce26c))
+* add listbox base component ([#1304](https://github.com/Microsoft/fast-dna/issues/1304)) ([0ad4cbe](https://github.com/Microsoft/fast-dna/commit/0ad4cbe))
+
+
+
+
+
 # [3.5.0](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-components-class-name-contracts-base@3.4.0...@microsoft/fast-components-class-name-contracts-base@3.5.0) (2019-01-15)
 
 

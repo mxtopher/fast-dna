@@ -1,11 +1,17 @@
-# FAST CSS React editor
+# FAST CSS editor React
+
+**FAST CSS editor React has been deprecated. Use [FAST Tooling React](https://www.npmjs.com/package/@microsoft/fast-tooling-react) instead.**
+
 A set of React components that allows the user to edit CSS properties.
 
 ## Installation
+
 `npm i --save @microsoft/fast-css-editor-react`
 
 ## Usage
+
 ### Default component export
+
 The default export implements all of the individual components to create a set of form elements that allow for editing of CSS values.
 
 ```jsx
@@ -42,4 +48,5 @@ export class Example extends React.Component {
 ```
 
 ## Individual component documentation
+
 Each component comes with a README.md for implementation and other usage details and additional TypeScript definition files.

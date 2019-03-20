@@ -25,11 +25,13 @@ class FormItemSelect extends FormItemBase<
     FormItemSelectProps & ManagedClasses<FormItemSelectClassNameContract>,
     {}
 > {
+    public static displayName: string = "FormItemSelect";
+
     /**
      * Renders the component
      */
     public render(): JSX.Element {
-        if (this.props.options.length === 1) {
+        if (this.props.options.length === 1 && this.props.required) {
             return null;
         }
 
@@ -46,9 +48,7 @@ class FormItemSelect extends FormItemBase<
                     >
                         {this.props.label}
                     </label>
-                    <span
-                        className={this.props.managedClasses.formItemSelect_controlSpan}
-                    >
+                    <span className={this.generateControlSpanClassNames()}>
                         <select
                             className={
                                 this.props.managedClasses.formItemSelect_controlInput
@@ -68,6 +68,21 @@ class FormItemSelect extends FormItemBase<
                 </div>
             </div>
         );
+    }
+
+    /**
+     * Generates class names
+     */
+    protected generateControlSpanClassNames(): string {
+        let classNames: string = this.props.managedClasses.formItemSelect_controlSpan;
+
+        if (this.props.disabled) {
+            classNames = `${classNames} ${
+                this.props.managedClasses.formItemSelect_controlSpan__disabled
+            }`;
+        }
+
+        return classNames;
     }
 
     /**

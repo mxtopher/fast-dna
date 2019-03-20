@@ -1,15 +1,13 @@
 import * as React from "react";
-import { clone, cloneDeep, get, isEqual, isPlainObject, mergeWith, set } from "lodash-es";
-import * as tv4 from "tv4";
+import { cloneDeep, get, mergeWith } from "lodash-es";
 import {
-    ChildOptionItem,
     getChildOptionBySchemaId,
     getDataLocationsOfChildren,
     getPartialData,
     mapSchemaLocationFromDataLocation,
     normalizeDataLocation,
 } from "@microsoft/fast-data-utilities-react";
-import { BreadcrumbItemEventHandler, FormState } from "./form.props";
+import { BreadcrumbItemEventHandler, FormChildOptionItem, FormState } from "./form.props";
 import { reactChildrenStringSchema } from "./form-item.children.text";
 
 const squareBracketsRegex: RegExp = /\[(\d+?)\]/g;
@@ -115,9 +113,9 @@ export function getNavigation(
     dataLocation: string,
     data: any,
     schema: any,
-    childOptions: ChildOptionItem[]
+    childOptions: FormChildOptionItem[]
 ): NavigationItem[] {
-    const allChildOptions: ChildOptionItem[] = getReactDefaultChildren().concat(
+    const allChildOptions: FormChildOptionItem[] = getReactDefaultChildren().concat(
         childOptions
     );
     const dataLocationsOfChildren: string[] = getDataLocationsOfChildren(
@@ -163,15 +161,44 @@ export function getNavigation(
             }
         } else {
             const isRoot: boolean = isRootLocation(lastComponentDataLocation);
+            const rootLocationOfComponent: string = isRoot
+                ? ""
+                : lastComponentDataLocation.replace(dataLocationItem, "");
             const dataLocationFromLastComponent: string = getCurrentComponentDataLocation(
                 dataLocationItem,
                 lastComponentDataLocation
             );
-            const currentSchemaLocation: string = mapSchemaLocationFromDataLocation(
+            let currentSchemaLocation: string = mapSchemaLocationFromDataLocation(
                 isRoot ? dataLocationItem : dataLocationFromLastComponent,
-                isRoot ? data : get(data, dataLocationItem),
+                isRoot ? data : get(data, rootLocationOfComponent),
                 currentComponentSchema
             );
+            const currentSchemaLocationSegments: string[] = currentSchemaLocation.split(
+                "."
+            );
+            const currentSchemaLocationSegmentsLength: number =
+                currentSchemaLocationSegments.length;
+            if (
+                !isNaN(
+                    parseInt(
+                        currentSchemaLocationSegments[
+                            currentSchemaLocationSegmentsLength - 1
+                        ],
+                        10
+                    )
+                ) &&
+                (currentSchemaLocationSegments[
+                    currentSchemaLocationSegmentsLength - 2
+                ] === "oneOf" ||
+                    currentSchemaLocationSegments[
+                        currentSchemaLocationSegmentsLength - 2
+                    ] === "anyOf")
+            ) {
+                currentSchemaLocation = currentSchemaLocationSegments
+                    .slice(0, currentSchemaLocationSegmentsLength - 2)
+                    .join(".");
+            }
+
             const currentSchema: any =
                 dataLocationFromLastComponent === ""
                     ? currentComponentSchema
@@ -212,7 +239,7 @@ export function getNavigationItem(
 /**
  * Get React's default children
  */
-export function getReactDefaultChildren(): ChildOptionItem[] {
+export function getReactDefaultChildren(): FormChildOptionItem[] {
     return [
         {
             name: "Text",
@@ -275,7 +302,7 @@ export function getSchemaByDataLocation(
     currentSchema: any,
     data: any,
     dataLocation: string,
-    childOptions: ChildOptionItem[]
+    childOptions: FormChildOptionItem[]
 ): any {
     if (dataLocation === "") {
         return currentSchema;
@@ -284,7 +311,7 @@ export function getSchemaByDataLocation(
     const subData: any = get(data, dataLocation);
     const id: string | undefined = subData ? subData.id : void 0;
     const childOptionWithMatchingSchemaId: any = childOptions.find(
-        (childOption: ChildOptionItem) => {
+        (childOption: FormChildOptionItem) => {
             return childOption.schema.id === id;
         }
     );
@@ -299,9 +326,9 @@ export function getSchemaByDataLocation(
  */
 export function getComponentByDataLocation(
     id: string,
-    childOptions: ChildOptionItem[]
+    childOptions: FormChildOptionItem[]
 ): any {
-    const childOption: ChildOptionItem = getChildOptionBySchemaId(id, childOptions);
+    const childOption: FormChildOptionItem = getChildOptionBySchemaId(id, childOptions);
 
     return childOption ? childOption.component : null;
 }

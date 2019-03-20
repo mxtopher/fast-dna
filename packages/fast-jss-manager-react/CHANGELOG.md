@@ -3,6 +3,52 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.1.14](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-jss-manager-react@3.1.13...@microsoft/fast-jss-manager-react@3.1.14) (2019-03-19)
+
+
+### Bug Fixes
+
+* update jest to fix build break ([#1531](https://github.com/Microsoft/fast-dna/issues/1531)) ([73ae6de](https://github.com/Microsoft/fast-dna/commit/73ae6de))
+
+
+
+
+
+## [3.1.13](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-jss-manager-react@3.1.12...@microsoft/fast-jss-manager-react@3.1.13) (2019-03-11)
+
+
+### Bug Fixes
+
+* update to prevent new design-system object creation when values don't change ([#1521](https://github.com/Microsoft/fast-dna/issues/1521)) ([afbf149](https://github.com/Microsoft/fast-dna/commit/afbf149))
+
+
+
+
+
+## [3.1.12](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-jss-manager-react@3.1.11...@microsoft/fast-jss-manager-react@3.1.12) (2019-02-28)
+
+**Note:** Version bump only for package @microsoft/fast-jss-manager-react
+
+
+
+
+
+## [3.1.11](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-jss-manager-react@3.1.10...@microsoft/fast-jss-manager-react@3.1.11) (2019-02-21)
+
+**Note:** Version bump only for package @microsoft/fast-jss-manager-react
+
+
+
+
+
+## [3.1.10](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-jss-manager-react@3.1.9...@microsoft/fast-jss-manager-react@3.1.10) (2019-02-07)
+
+**Note:** Version bump only for package @microsoft/fast-jss-manager-react
+
+
+
+
+
 ## [3.1.9](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-jss-manager-react@3.1.8...@microsoft/fast-jss-manager-react@3.1.9) (2019-01-15)
 
 **Note:** Version bump only for package @microsoft/fast-jss-manager-react

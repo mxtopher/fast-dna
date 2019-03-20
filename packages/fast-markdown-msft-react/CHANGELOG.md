@@ -3,7 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [3.0.14](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-markdown-msft-react@3.0.13...@microsoft/fast-markdown-msft-react@3.0.14) (2019-01-15)
+## [3.0.23](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-markdown-msft-react@3.0.22...@microsoft/fast-markdown-msft-react@3.0.23) (2019-03-19)
+
+
+### Bug Fixes
+
+* update jest to fix build break ([#1531](https://github.com/Microsoft/fast-dna/issues/1531)) ([73ae6de](https://github.com/Microsoft/fast-dna/commit/73ae6de))
+
+
+
+
+
+## [3.0.22](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-markdown-msft-react@3.0.21...@microsoft/fast-markdown-msft-react@3.0.22) (2019-03-11)
 
 **Note:** Version bump only for package @microsoft/fast-markdown-msft-react
 
@@ -11,7 +22,58 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-## [3.0.13](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-markdown-msft-react@3.0.12...@microsoft/fast-markdown-msft-react@3.0.13) (2018-12-31)
+## [3.0.21](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-markdown-msft-react@3.0.20...@microsoft/fast-markdown-msft-react@3.0.21) (2019-03-01)
+
+**Note:** Version bump only for package @microsoft/fast-markdown-msft-react
+
+
+
+
+
+## [3.0.20](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-markdown-msft-react@3.0.19...@microsoft/fast-markdown-msft-react@3.0.20) (2019-02-28)
+
+**Note:** Version bump only for package @microsoft/fast-markdown-msft-react
+
+
+
+
+
+## [3.0.19](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-markdown-msft-react@3.0.18...@microsoft/fast-markdown-msft-react@3.0.19) (2019-02-21)
+
+**Note:** Version bump only for package @microsoft/fast-markdown-msft-react
+
+
+
+
+
+## [3.0.18](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-markdown-msft-react@3.0.17...@microsoft/fast-markdown-msft-react@3.0.18) (2019-02-07)
+
+**Note:** Version bump only for package @microsoft/fast-markdown-msft-react
+
+
+
+
+
+<a name="3.0.17"></a>
+## [3.0.17](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-markdown-msft-react@3.0.16...@microsoft/fast-markdown-msft-react@3.0.17) (2019-01-26)
+
+**Note:** Version bump only for package @microsoft/fast-markdown-msft-react
+
+
+
+
+
+<a name="3.0.16"></a>
+## [3.0.16](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-markdown-msft-react@3.0.15...@microsoft/fast-markdown-msft-react@3.0.16) (2019-01-22)
+
+**Note:** Version bump only for package @microsoft/fast-markdown-msft-react
+
+
+
+
+
+<a name="3.0.15"></a>
+## [3.0.15](https://github.com/Microsoft/fast-dna/compare/@microsoft/fast-markdown-msft-react@3.0.14...@microsoft/fast-markdown-msft-react@3.0.15) (2019-01-22)
 
 **Note:** Version bump only for package @microsoft/fast-markdown-msft-react
 

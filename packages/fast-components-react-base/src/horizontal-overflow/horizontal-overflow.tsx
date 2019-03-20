@@ -78,6 +78,11 @@ class HorizontalOverflow extends Foundation<
     private overflowEnd: boolean;
 
     /**
+     * Store a reference to a constructed resize observer
+     */
+    private resizeObserver?: ResizeObserverClassDefinition;
+
+    /**
      * Constructor
      */
     constructor(props: HorizontalOverflowProps) {
@@ -167,14 +172,14 @@ class HorizontalOverflow extends Foundation<
             // https://bugzilla.mozilla.org/show_bug.cgi?id=1272409
             // https://bugs.webkit.org/show_bug.cgi?id=157743
             if ((window as WindowWithResizeObserver).ResizeObserver) {
-                const resizeObserver: ResizeObserverClassDefinition = new (window as WindowWithResizeObserver).ResizeObserver(
+                this.resizeObserver = new (window as WindowWithResizeObserver).ResizeObserver(
                     (entries: ResizeObserverEntry[]): void => {
                         if (this.overflow !== this.isOverflow()) {
                             this.handleOverflowChange();
                         }
                     }
                 );
-                resizeObserver.observe(this.horizontalOverflowItemsRef.current);
+                this.resizeObserver.observe(this.horizontalOverflowItemsRef.current);
             }
         }
     }
@@ -189,6 +194,46 @@ class HorizontalOverflow extends Foundation<
                 this.throttledScroll
             );
             window.removeEventListener("resize", this.throttledResize);
+
+            // TODO #1142 https://github.com/Microsoft/fast-dna/issues/1142
+            // Full browser support imminent
+            // Revisit usage once Safari and Firefox adapt
+            // https://bugzilla.mozilla.org/show_bug.cgi?id=1272409
+            // https://bugs.webkit.org/show_bug.cgi?id=157743
+            if (
+                this.resizeObserver &&
+                typeof this.resizeObserver.disconnect === "function"
+            ) {
+                this.resizeObserver.disconnect();
+                this.resizeObserver = null;
+            }
+        }
+    }
+
+    /**
+     * React life-cycle method
+     */
+    public getSnapshotBeforeUpdate(prevProps: HorizontalOverflowProps): boolean | null {
+        if (
+            React.Children.toArray(prevProps.children).length <
+            React.Children.toArray(this.props.children).length
+        ) {
+            return true;
+        }
+
+        return null;
+    }
+
+    /**
+     * React life-cycle method
+     */
+    public componentDidUpdate(
+        prevProps: HorizontalOverflowProps,
+        prevState: HorizontalOverflowState,
+        snapshot: boolean | null
+    ): void {
+        if (snapshot !== null) {
+            this.handleOverflowChange();
         }
     }
 
@@ -350,7 +395,18 @@ class HorizontalOverflow extends Foundation<
         return React.Children.map(
             this.withoutSlot([ButtonDirection.previous, ButtonDirection.next]),
             (child: React.ReactNode): React.ReactElement<HTMLLIElement> => {
-                return <li style={{ display: "inline-block" }}>{child}</li>;
+                return (
+                    <li
+                        className={get(
+                            this.props.managedClasses,
+                            "horizontalOverflow_item",
+                            ""
+                        )}
+                        style={{ display: "inline-block" }}
+                    >
+                        {child}
+                    </li>
+                );
             }
         );
     }
@@ -409,7 +465,7 @@ class HorizontalOverflow extends Foundation<
             );
         }
 
-        return distance;
+        return Math.ceil(distance);
     }
 
     /**

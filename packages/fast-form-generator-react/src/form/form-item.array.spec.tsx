@@ -10,7 +10,6 @@ import { FormItemArrayClassNameContract } from "../class-name-contracts";
 configure({ adapter: new Adapter() });
 
 const arrayProps: FormItemArrayProps = {
-    key: "1",
     untitled: "",
     index: 1,
     dataLocation: "",
@@ -30,6 +29,8 @@ const managedClasses: FormItemArrayClassNameContract = {
     formItemArray_controlLabel: "formItemArray_controlLabel-class",
     formItemArray_existingItemList: "formItemArray_existingItemList-class",
     formItemArray_existingItemListItem: "formItemArray_existingItemListItem-class",
+    formItemArray_existingItemListItem__sorting:
+        "formItemArray_existingItemListItem__sorting-class",
     formItemArray_existingItemListItemLink:
         "formItemArray_existingItemListItemLink-class",
     formItemArray_existingItemRemoveButton:

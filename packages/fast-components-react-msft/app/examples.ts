@@ -4,6 +4,15 @@ export { ActionToggleExamples };
 import ActionTriggerExamples from "../src/action-trigger/examples.data";
 export { ActionTriggerExamples };
 
+import AutoSuggestExamples from "../src/auto-suggest/examples.data";
+export { AutoSuggestExamples };
+
+import AutoSuggestOptionExamples from "../src/auto-suggest-option/examples.data";
+export { AutoSuggestOptionExamples };
+
+import BadgeExamples from "../src/badge/examples.data";
+export { BadgeExamples };
+
 import BreadcrumbExamples from "../src/breadcrumb/examples.data";
 export { BreadcrumbExamples };
 
@@ -15,6 +24,9 @@ export { CallToActionExamples };
 
 import CaptionExamples from "../src/caption/examples.data";
 export { CaptionExamples };
+
+import CarouselExamples from "../src/carousel/examples.data";
+export { CarouselExamples };
 
 import ContextMenu from "../src/context-menu/examples.data";
 export { ContextMenu };
@@ -52,14 +64,26 @@ export { LabelExamples };
 import MetatextExamples from "../src/metatext/examples.data";
 export { MetatextExamples };
 
+import NumberFieldExamples from "../src/number-field/examples.data";
+export { NumberFieldExamples };
+
 import ParagraphExamples from "../src/paragraph/examples.data";
 export { ParagraphExamples };
+
+import PivotExamples from "../src/pivot/examples.data";
+export { PivotExamples };
 
 import ProgressExamples from "../src/progress/examples.data";
 export { ProgressExamples };
 
 import RadioExamples from "../src/radio/examples.data";
 export { RadioExamples };
+
+import Select from "../src/select/examples.data";
+export { Select };
+
+import SelectOption from "../src/select-option/examples.data";
+export { SelectOption };
 
 import SubheadingExamples from "../src/subheading/examples.data";
 export { SubheadingExamples };
